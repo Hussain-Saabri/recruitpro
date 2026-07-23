@@ -28,10 +28,10 @@ const Input = forwardRef(
           <Label
             htmlFor={id}
             required={required}
-            className="flex items-center gap-1.5"
+            className="flex items-center"
           >
             {labelIcon && (
-              <span className="text-brand-600 flex items-center justify-center [&>svg]:h-3.5 [&>svg]:w-3.5">
+              <span className="text-brand-600 flex items-center justify-center [&>svg]:h-3.5 [&>svg]:w-3.5 mr-1.5 mt-[1px]">
                 {labelIcon}
               </span>
             )}
@@ -55,7 +55,7 @@ const Input = forwardRef(
             placeholder={placeholder}
             required={required}
             className={twMerge(
-              `w-full rounded-[5px] border px-3 py-2 text-sm text-slate-800 bg-white placeholder:text-gray-500 placeholder:text-[12px]
+              `w-full rounded-[5px] border px-3 py-2 text-[12.5px] text-slate-800 bg-white placeholder:text-gray-500 placeholder:text-[12px]
                transition-all duration-200 outline-none
                ${
                  leftIcon ? "pl-9" : ""
@@ -81,9 +81,9 @@ const Input = forwardRef(
         </div>
 
         {error && (
-          <div className="mt-1 flex items-center gap-1 text-xs font-medium text-red-500">
-            <CircleAlert size={14} />
-            <span>{error}</span>
+          <div className="mt-1 flex items-start gap-1 text-[12.5px] font-medium text-red-500">
+            <CircleAlert size={14} className="shrink-0 mt-[2px]" />
+            <span className="leading-tight">{error}</span>
           </div>
         )}
       </div>

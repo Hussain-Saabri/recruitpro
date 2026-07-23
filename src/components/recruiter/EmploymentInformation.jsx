@@ -1,20 +1,20 @@
 import { Button, Input } from "../ui";
 import Dropdown from "../ui/Dropdown";
 import FormCard from "../ui/FormCard";
-import {BriefcaseBusiness ,GraduationCap,Badge,BookOpen,Clock3,Calendar,CalendarCheck2,MapPin,User,MoveRight,Cake,VenusAndMars,House,Building2,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail, ClockCheckIcon} from "lucide-react";
+import {BriefcaseBusiness ,Badge,BookOpen,Clock3,Calendar,CalendarCheck2,MapPin,User,MoveRight,Cake,VenusAndMars,House,Building2,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail, ClockCheckIcon} from "lucide-react";
 
 import { useState, useEffect } from "react";
 import MultiFormCard from "../ui/MultiFormCard";
 export default function EmploymentInformation({ submitTrigger, onValidationResult }) {
     const [employments, setEmployments] = useState([
-        { id: 1, payrollCompany: "", company: "", stream: "", type: "", startDate: "", endDate: "", location: "" }
+        { id: 1, payrollCompany: "", company: "", designation: "", type: "", startDate: "", endDate: "", location: "" }
     ]);
     const [errors, setErrors] = useState([{}]);
 
     const handleAddEmployment = () => {
         setEmployments([
             ...employments,
-            { id: Date.now(), payrollCompany: "", company: "", stream: "", type: "", startDate: "", endDate: "", location: "" },
+            { id: Date.now(), payrollCompany: "", company: "", designation: "", type: "", startDate: "", endDate: "", location: "" },
         ]);
         setErrors([...errors, {}]);
     };
@@ -43,18 +43,48 @@ export default function EmploymentInformation({ submitTrigger, onValidationResul
                 const err = {};
                 if (!emp.payrollCompany?.trim()) err.payrollCompany = "Required";
                 if (!emp.company?.trim()) err.company = "Required";
-                if (!emp.stream?.trim()) err.stream = "Required";
+                if (!emp.designation?.trim()) err.designation = "Required";
                 if (!emp.type?.trim()) err.type = "Required";
                 if (!emp.startDate) err.startDate = "Required";
                 if (!emp.endDate) err.endDate = "Required";
                 if (!emp.location?.trim()) err.location = "Required";
+                
+                if (emp.startDate && emp.endDate) {
+                    if (new Date(emp.endDate) < new Date(emp.startDate)) {
+                        err.endDate = "End date cannot be less than start date";
+                    }
+                }
                 return err;
             });
+
+            // Check for date overlaps between employment blocks
+            for (let i = 0; i < employments.length; i++) {
+                for (let j = i + 1; j < employments.length; j++) {
+                    const emp1 = employments[i];
+                    const emp2 = employments[j];
+                    
+                    if (emp1.startDate && emp1.endDate && emp2.startDate && emp2.endDate) {
+                        const start1 = new Date(emp1.startDate);
+                        const end1 = new Date(emp1.endDate);
+                        const start2 = new Date(emp2.startDate);
+                        const end2 = new Date(emp2.endDate);
+
+                        // If dates overlap
+                        if (start1 <= end2 && start2 <= end1) {
+                            newErrors[i].startDate = newErrors[i].startDate || `Overlap with Employment #${j + 1}`;
+                            newErrors[j].startDate = newErrors[j].startDate || `Overlap with Employment #${i + 1}`;
+                        }
+                    }
+                }
+            }
+
             setErrors(newErrors);
 
             const hasErrors = newErrors.some(err => Object.keys(err).length > 0);
             if (!hasErrors) {
                 onValidationResult(true, { employments });
+            } else {
+                onValidationResult(false, null);
             }
         }
     }, [submitTrigger, employments]);
@@ -82,7 +112,7 @@ export default function EmploymentInformation({ submitTrigger, onValidationResul
                 <Input
                 label="Payroll Company"
                 type="text"
-                placeholder="Enter Company Name"
+                placeholder="Enter Payroll Company"
                 value={employment.payrollCompany}
                 onChange={(e) => handleChange(index, 'payrollCompany', e.target.value)}
                 error={errors[index]?.payrollCompany}
@@ -102,18 +132,18 @@ export default function EmploymentInformation({ submitTrigger, onValidationResul
                 />
                 
                 <Input
-                label="Stream"
+                label="Designation"
                 labelIcon={<BookOpen />}
                 type="text"
-                placeholder="Enter Stream"
-                value={employment.stream}
-                onChange={(e) => handleChange(index, 'stream', e.target.value)}
-                error={errors[index]?.stream}
+                placeholder="Enter Designation"
+                value={employment.designation}
+                onChange={(e) => handleChange(index, 'designation', e.target.value)}
+                error={errors[index]?.designation}
                 required={true} 
                 />
                 
                 <Dropdown
-                label="Type"
+                label="Employment Type"
                 labelIcon={<ClockCheckIcon />}
                 options={[
                         {value:"Full-Time", label:"Full-Time"},
@@ -125,7 +155,7 @@ export default function EmploymentInformation({ submitTrigger, onValidationResul
                         error={errors[index]?.type}
                         required={true}
                         className="w-full h-[42px]"
-                        placeholder="Select Type"
+                        placeholder="Select Type Of Employment"
                 />
                 
             </div>
@@ -155,7 +185,7 @@ export default function EmploymentInformation({ submitTrigger, onValidationResul
                 <Input
                 label="Location"
                 type="text"
-                placeholder="Enter Location"
+                placeholder="Enter Employment Location"
                 value={employment.location}
                 onChange={(e) => handleChange(index, 'location', e.target.value)}
                 error={errors[index]?.location}
