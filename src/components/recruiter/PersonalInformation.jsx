@@ -3,16 +3,18 @@ import { Input } from "../ui";
 import Dropdown from "../ui/Dropdown";
 import FormCard from "../ui/FormCard";
 import {User,Cake,VenusAndMars,House,Building2,MapPin,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail} from "lucide-react";
-import {useState} from "react";
+import { useEffect, useState } from "react";
 
-export default function PersonalInformation() {
-    
+export default function PersonalInformation({ jdData, submitTrigger, onValidationResult }) {   
+    console.log("Inside the PersonalInformation",submitTrigger);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [errors, setErrors] = useState({});
+    
     const [pan,setPan] = useState("");
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
-    const [role,setRole] = useState("To be change");
+    const [role,setRole] = useState(jdData?.title || "");
     const [totalExp,setTotalExp] = useState("");
     const [relevantExp,setRelevantExp] = useState("");
     const [streetAddress,setStreetAddress] = useState("");
@@ -23,8 +25,50 @@ export default function PersonalInformation() {
     const[postalCode,setPostalCode]=useState("");
     const[workLocation,setWorkLocation]=useState("");
     
-    
-    console.log(firstName);
+    useEffect(() => {
+        if (submitTrigger.count > 0 && submitTrigger.step === 1) {
+            const newErrors = {};
+            if (!firstName.trim()) newErrors.firstName = "First Name is required";
+            if (!lastName.trim()) newErrors.lastName = "Last Name is required";
+            if (!gender) newErrors.gender = "Gender is required";
+            if (!dob) newErrors.dob = "DOB is required";
+            if (!pan) newErrors.pan = "PAN is required";
+            if (!email) newErrors.email = "Email is required";
+            if (!phone) newErrors.phone = "Phone is required";
+            if (!role) newErrors.role = "Role is required";
+            if (!totalExp) newErrors.totalExp = "Total Experience is required";
+            if (!relevantExp) newErrors.relevantExp = "Relevant Experience is required";
+            if (!streetAddress) newErrors.streetAddress = "Street Address is required";
+            if (!city) newErrors.city = "City is required";
+            if (!state) newErrors.state = "State is required";
+            if (!postalCode) newErrors.postalCode = "Postal Code is required";
+            if (!workLocation) newErrors.workLocation = "Work Location is required";
+            setErrors(newErrors);
+
+            if (Object.keys(newErrors).length === 0) {
+                // If everything is valid, tell parent it's OK and pass the data!
+                const personalData = {
+                    firstName,
+                    lastName,
+                    gender,
+                    dob,
+                    pan,
+                    email,
+                    phone,
+                    role,
+                    totalExp,
+                    relevantExp,
+                    streetAddress,
+                    city,
+                    state,
+                    postalCode,
+                    workLocation
+                };
+                onValidationResult(true, { personalInfo: personalData });
+            }
+        }
+    }, [submitTrigger]);
+
     return (
         <>
             <FormCard
@@ -34,14 +78,18 @@ export default function PersonalInformation() {
             >
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 <Input
-                label="First Name*"
+                label="First Name"
                 type="text"
                 placeholder="Enter First Name"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setErrors((prev) => ({ ...prev, firstName: "" }));
+                }}
                 className="w-full"
                 labelIcon ={<User/>}
-                required={true} 
+                required={true}
+                error={errors?.firstName} 
                 />
                 <Input
                 label="Last Name"
@@ -49,8 +97,12 @@ export default function PersonalInformation() {
                 placeholder="Enter Last Name"
                 value={lastName}
                 labelIcon ={<User/>}
-                onChange={(e) => setLastName(e.target.value)}
-                required={true} 
+                onChange={(e) => {setLastName(e.target.value);
+                    errors.lastName = "";
+                }}
+                required={true}
+                error={errors?.lastName}
+                
                 />
                 <Dropdown
                 label="Gender"
@@ -62,9 +114,12 @@ export default function PersonalInformation() {
                     {value:"Other", label:"Other"}
                 ]}
                 value={gender}
-                onChange={(val) => setGender(val)}
+                onChange={(val) => {setGender(val);
+                    errors.gender = "";
+                }}
                 required={true}
                 className="w-full h-[42px]"
+                 error={errors?.gender}
                 />
                 <Input
                 label="DOB"
@@ -72,9 +127,10 @@ export default function PersonalInformation() {
                 type="date"
                 placeholder="dd-mm-yyyy"
                 value={dob}
-                onChange={(e) => setDob(e.target.value)}
+                onChange={(e) =>{ errors.dob=""; setDob(e.target.value)}}
                 required={true} 
                 className="font-mono text-slate-500 text-[12px]"
+                error={errors?.dob}
                 />
                 
                 
@@ -85,10 +141,11 @@ export default function PersonalInformation() {
                 type="text"
                 placeholder="e.g. ABCDE1234F"
                 value={pan}
-                onChange={(e) => setPan(e.target.value)}
+                onChange={(e) =>{ errors.pan=""; setPan(e.target.value)}}
                 className="w-full"
                 labelIcon ={<IdCard  />}
                 required={true} 
+                error={errors?.pan}
                 />
                 <Input
                 label="Email"
@@ -96,8 +153,8 @@ export default function PersonalInformation() {
                 placeholder="Enter email address"
                 value={email}
                 labelIcon ={<Mail />}
-                onChange={(e) =>setEmail(e.target.value)}
-                
+                onChange={(e) =>{ errors.email=""; setEmail(e.target.value)}}
+                error={errors?.email}
                 required={true} 
                 />
                 <Input
@@ -109,7 +166,7 @@ export default function PersonalInformation() {
                 onChange={(e) =>{
                     let val = e.target.value;
                     if (val.length <= 10) {
-                        setPhone(val);
+                        errors.phone=""; setPhone(val);
                     }
                 }}
                 onKeyDown={(e) => {
@@ -117,7 +174,8 @@ export default function PersonalInformation() {
                         e.preventDefault();
                     }
                 }}
-                required={true} 
+                required={true}
+                error={errors?.phone}
                 />
                 <Input
                 label="Role"
@@ -127,6 +185,7 @@ export default function PersonalInformation() {
                 value={role}
                 readOnly
                 required={true}
+                error={errors?.role}
                 />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-4">
@@ -140,17 +199,19 @@ export default function PersonalInformation() {
                     if (val === "" || (Number(val) >= 0 && Number(val) <= 15)) {
                         setTotalExp(val);
                     }
+                    errors.totalExp="";
                 }}
                 onKeyDown={(e) => {
                     if (["-", "+", "e", "E"].includes(e.key)) {
                         e.preventDefault();
                     }
-                }}
+                }}  
                 className="w-full"
                 min={0}
                 max={50}
                 labelIcon ={<ChartLine />}
                 required={true} 
+                error={errors?.totalExp}
                 />
                 <Input
                 label="Relevant Experience"
@@ -163,6 +224,7 @@ export default function PersonalInformation() {
                     if (val === "" || (Number(val) >= 0 && Number(val) <= 15)) {
                         setRelevantExp(val);
                     }
+                    errors.relevantExp="";
                 }}
                 onKeyDown={(e) => {
                     if (["-", "+", "e", "E"].includes(e.key)) {
@@ -172,6 +234,7 @@ export default function PersonalInformation() {
                 min={0}
                 max={50}
                 required={true} 
+                error={errors?.relevantExp}
                 />
                 
                 
@@ -182,10 +245,11 @@ export default function PersonalInformation() {
                 type="text"
                 placeholder="Enter Street Address"
                 value={streetAddress}
-                onChange={(e) =>setStreetAddress(e.target.value)}
+                onChange={(e) =>{setStreetAddress(e.target.value); errors.streetAddress="";}}
                 className="w-full"
                 labelIcon ={<IdCard  />}
                 required={true} 
+                error={errors?.streetAddress}
                 />
                 
             </div>
@@ -195,21 +259,23 @@ export default function PersonalInformation() {
                 type="text"
                 placeholder="Enter City"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) =>{errors.city=""; setCity(e.target.value)}}
                 className="w-full"
                 labelIcon ={<Building2 />}
                 required={true} 
+                error={errors?.city}
                 />
                 <Input
                 label="State"
                 type="text"
                 placeholder="Enter State"
                 value={state}
-                onChange={(e) =>setState(e.target.value)}
+                onChange={(e) =>{errors.state=""; setState(e.target.value)}}
                 
                 className="w-full"
                 labelIcon ={<MapPin  />}
                 required={true} 
+                error={errors?.state}
                 />
                 <Input
                 label="Postal Code"
@@ -221,6 +287,7 @@ export default function PersonalInformation() {
                     if (val.length <= 6) {
                         setPostalCode(val);
                     }
+                    errors.postalCode="";
                 }}
                 onKeyDown={(e) => {
                     if (["-", "+", "e", "E", "."].includes(e.key)) {
@@ -230,16 +297,20 @@ export default function PersonalInformation() {
                 className="w-full"
                 labelIcon ={<Flag />}
                 required={true} 
+                error={errors?.postalCode}
                 />
                 <Input
                 label="Work Location"
                 type="text"
                 placeholder="Enter Work Location"
                 value={workLocation}
-                onChange={(e) =>setWorkLocation(e.target.value)}
+                onChange={(e) =>{setWorkLocation(e.target.value);
+                    errors.workLocation="";
+                }}
                 className="w-full"
                 labelIcon ={<House />}
                 required={true} 
+                error={errors?.workLocation}
                 />
                 
             </div>                        

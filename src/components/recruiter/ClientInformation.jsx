@@ -2,8 +2,41 @@ import { Input } from "../ui";
 import Dropdown from "../ui/Dropdown";
 import FormCard from "../ui/FormCard";
 import {Hash,Video,Building2,ReceiptIndianRupee,Logs,Handshake,ChartLine} from "lucide-react";
-export default function ClientInformation() {       
-    console.log("ClientInformation responsive grids applied");
+import { useState, useEffect } from "react";
+export default function ClientInformation({ submitTrigger, onValidationResult }) {       
+    const [clientName, setClientName] = useState("");
+    const [reqId, setReqId] = useState("");
+    const [workType, setWorkType] = useState("");
+    const [onboarding, setOnboarding] = useState("");
+    const [interviewType, setInterviewType] = useState("");
+    const [currentCtc, setCurrentCtc] = useState("");
+    const [expectedCtc, setExpectedCtc] = useState("");
+    const [noticePeriod, setNoticePeriod] = useState("");
+    const [uanNumber, setUanNumber] = useState("");
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (submitTrigger?.count > 0 && submitTrigger?.step === 4) {
+            const newErrors = {};
+            if (!clientName.trim()) newErrors.clientName = "Required";
+            if (!reqId.trim()) newErrors.reqId = "Required";
+            if (!workType) newErrors.workType = "Required";
+            if (!onboarding.trim()) newErrors.onboarding = "Required";
+            if (!interviewType.trim()) newErrors.interviewType = "Required";
+            if (!currentCtc.trim()) newErrors.currentCtc = "Required";
+            if (!expectedCtc.trim()) newErrors.expectedCtc = "Required";
+            if (!noticePeriod.trim()) newErrors.noticePeriod = "Required";
+            if (!uanNumber.trim()) newErrors.uanNumber = "Required";
+            setErrors(newErrors);
+
+            if (Object.keys(newErrors).length === 0) {
+                onValidationResult(true, { 
+                    clientInfo: { clientName, reqId, workType, onboarding, interviewType, currentCtc, expectedCtc, noticePeriod, uanNumber } 
+                });
+            }
+        }
+    }, [submitTrigger]);
+
     return (
         <>
             <FormCard
@@ -14,8 +47,10 @@ export default function ClientInformation() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 <Input
                 label="Client Name"
-                type=""                
-                value=""              
+                type="text"                
+                value={clientName}
+                onChange={(e) => {setClientName(e.target.value); errors.clientName = "";}}
+                error={errors.clientName}
                 className="w-full"
                 labelIcon ={<Building2 />}
                 required={true} 
@@ -23,7 +58,9 @@ export default function ClientInformation() {
                 <Input
                 label="Requirement ID"
                 type="text"                
-                value=""
+                value={reqId}
+                onChange={(e) => {setReqId(e.target.value); errors.reqId = "";}}
+                error={errors.reqId}
                 labelIcon ={<Hash/>}               
                 required={true} 
                 />
@@ -35,7 +72,9 @@ export default function ClientInformation() {
                     {value:"Work From Office", label:"wfo"},
                     {value:"Hybrid", label:"hybrid"}
                 ]}
-                value=""                
+                value={workType}
+                onChange={(val) => {setWorkType(val); errors.workType = "";}}
+                error={errors.workType}
                 required={true}
                 className="w-full h-[42px]"
                 />
@@ -43,16 +82,19 @@ export default function ClientInformation() {
                 label="Onboarding"
                 labelIcon={<Handshake />}
                 type="text"               
-                value=""               
+                value={onboarding}
+                onChange={(e) => {setOnboarding(e.target.value); errors.onboarding = "";}}
+                error={errors.onboarding}
                 required={true} 
-               
                 />                
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-4">
                 <Input
                 label="Interview Type"
                 type="text"               
-                value=""              
+                value={interviewType}
+                onChange={(e) => {setInterviewType(e.target.value); errors.interviewType = "";}}
+                error={errors.interviewType}
                 className="w-full"
                 labelIcon ={<Video  />}
                 required={true} 
@@ -60,7 +102,9 @@ export default function ClientInformation() {
                 <Input
                 label="Current CTC"
                 type="text"              
-                value=""
+                value={currentCtc}
+                onChange={(e) => {setCurrentCtc(e.target.value); errors.currentCtc = "";}}
+                error={errors.currentCtc}
                 labelIcon ={<ReceiptIndianRupee />}              
                 required={true} 
                 />
@@ -68,14 +112,18 @@ export default function ClientInformation() {
                 label="Expected CTC"
                 labelIcon={<ReceiptIndianRupee />}
                 type="text"               
-                value=""                
+                value={expectedCtc}
+                onChange={(e) => {setExpectedCtc(e.target.value); errors.expectedCtc = "";}}
+                error={errors.expectedCtc}
                 required={true} 
                 />
                 <Input
                 label="Notice Period"
                 labelIcon={<ChartLine  />}
                 type="text"                
-                value=""                
+                value={noticePeriod}
+                onChange={(e) => {setNoticePeriod(e.target.value); errors.noticePeriod = "";}}
+                error={errors.noticePeriod}
                 required={true}
                 />
             </div>
@@ -83,12 +131,14 @@ export default function ClientInformation() {
                 <Input
                 label="UAN Number "
                 type="text"               
-                value=""            
+                value={uanNumber}
+                onChange={(e) => {setUanNumber(e.target.value); errors.uanNumber = "";}}
+                error={errors.uanNumber}
                 className=""
                 labelIcon ={<ChartLine />}
                 required={true} 
                 />                
-            </div>                                     
+            </div>                                      
             </FormCard>            
             <div>                
         </div>

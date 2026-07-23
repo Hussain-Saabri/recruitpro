@@ -6,16 +6,20 @@ import ReviewListSection from "./ReviewListSection";
 import ReviewResumeSection from "./ReviewResumeSection";
 import Checkbox from "../../ui/Checkbox";
 
-export default function ReviewSubmission({ isChecked, setIsChecked }) {
+export default function ReviewSubmission({ isChecked, setIsChecked, apiData = {}, jdData = null }) {
+    const { personalInfo = {}, educations = [], employments = [], clientInfo = {}, resumeFile = null } = apiData;
+    
+    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
     return (
         <>
             <CandidateProfileCard
                 candidate={{
-                    firstName: "Dadapir",
-                    lastName: "Shaikh",
-                    role: "Full Stack Developer",
-                    location: "Goa",
-                    submittedAt: "20 Jul 2026",
+                    firstName: personalInfo.firstName || "Unknown",
+                    lastName: personalInfo.lastName || "Candidate",
+                    role: jdData ? jdData.title : "Unknown Role",
+                    location: personalInfo.workLocation || "Unknown",
+                    submittedAt: today,
                 }}
             />
 
@@ -24,16 +28,16 @@ export default function ReviewSubmission({ isChecked, setIsChecked }) {
                     title="Personal Information"
                     icon={<User size={14} />}
                     items={[
-                        { label: "FIRST NAME", value: "dDDDDDDDDDDD" },
-                        { label: "LAST NAME", value: "dDDDDDDDDDDD" },
-                        { label: "EMAIL", value: "dadapir19ce30@gmail.com" },
-                        { label: "PHONE", value: "9922841004" },
-                        { label: "GENDER", value: "Male" },
-                        { label: "DATE OF BIRTH", value: "2000-01-20" },
-                        { label: "TOTAL EXPERIENCE", value: "0.3 yrs" },
-                        { label: "RELEVANT EXPERIENCE", value: "0.2 yrs" },
+                        { label: "FIRST NAME", value: personalInfo.firstName || "-" },
+                        { label: "LAST NAME", value: personalInfo.lastName || "-" },
+                        { label: "EMAIL", value: personalInfo.email || "-" },
+                        { label: "PHONE", value: personalInfo.phone || "-" },
+                        { label: "GENDER", value: personalInfo.gender || "-" },
+                        { label: "DATE OF BIRTH", value: personalInfo.dob || "-" },
+                        { label: "TOTAL EXPERIENCE", value: personalInfo.totalExperience ? `${personalInfo.totalExperience} yrs` : "-" },
+                        { label: "RELEVANT EXPERIENCE", value: personalInfo.relevantExperience ? `${personalInfo.relevantExperience} yrs` : "-" },
                         { empty: true },
-                        { label: "ADDRESS", value: "Dattagad, ponda, Goa, 403401", fullWidth: true }
+                        { label: "LOCATION", value: personalInfo.workLocation || "-", fullWidth: true }
                     ]}
                 />
 
@@ -41,15 +45,15 @@ export default function ReviewSubmission({ isChecked, setIsChecked }) {
                     title="Client Information"
                     icon={<Building size={14} />}
                     items={[
-                        { label: "CLIENT NAME", value: "Tech Corp" },
-                        { label: "REQUIREMENT ID", value: "REQ-2025-FS-001" },
-                        { label: "WORK TYPE", value: "Remote" },
-                        { label: "INTERVIEW TYPE", value: "Virtual" },
-                        { label: "ONBOARDING", value: "Contract to Hire" },
-                        { label: "CURRENT CTC", value: "0.5" },
-                        { label: "EXPECTED CTC", value: "0.3" },
-                        { label: "UAN NUMBER", value: "111111111111" },
-                        { empty: true }
+                        { label: "CLIENT NAME", value: clientInfo.clientName || "-" },
+                        { label: "REQUIREMENT ID", value: clientInfo.reqId || "-" },
+                        { label: "WORK TYPE", value: clientInfo.workType || "-" },
+                        { label: "INTERVIEW TYPE", value: clientInfo.interviewType || "-" },
+                        { label: "ONBOARDING", value: clientInfo.onboarding || "-" },
+                        { label: "CURRENT CTC", value: clientInfo.currentCtc || "-" },
+                        { label: "EXPECTED CTC", value: clientInfo.expectedCtc || "-" },
+                        { label: "UAN NUMBER", value: clientInfo.uanNumber || "-" },
+                        { label: "NOTICE PERIOD", value: clientInfo.noticePeriod || "-" }
                     ]}
                 />
 
@@ -57,37 +61,36 @@ export default function ReviewSubmission({ isChecked, setIsChecked }) {
                     title="Education"
                     icon={<GraduationCap size={14} />}
                     cardIcon={<GraduationCap size={16} />}
-                    items={[
-                        { 
-                            title: "Goa College Of Engineering", 
-                            badge1: "FFFFFFFFFFFFFF", 
-                            badge2: "FFFFFFFFFFFFFF", 
-                            badge3: "Full-time",
-                            dateRange: "2018-01 → 2019-07",
-                            location: "FFFFFFFFFFFFFF"
-                        }
-                    ]}
+                    items={educations.map(edu => ({
+                        title: edu.college || "-", 
+                        badge1: edu.degree || "-", 
+                        badge2: edu.stream || "-", 
+                        badge3: edu.type || "-",
+                        dateRange: `${edu.startDate || ""} → ${edu.endDate || ""}`,
+                        location: edu.location || "-"
+                    }))}
                 />
 
                 <ReviewListSection 
                     title="Employment History"
                     icon={<Briefcase size={14} />}
                     cardIcon={<Briefcase size={16} />}
-                    items={[
-                        { 
-                            title: "FFFFFFFFFFFFFFF", 
-                            subtitle: "FFFFFFFFFFFFFFF",
-                            badge4: "FFFFFFFFFFFFFFF", 
-                            badge3: "Part-time",
-                            dateRange: "2025-08 → 2026-06",
-                            location: "FFFFFFFFFFFFFFF"
-                        }
-                    ]}
+                    items={employments.map(emp => ({
+                        title: emp.company || "-", 
+                        subtitle: emp.payrollCompany || "-",
+                        badge4: emp.stream || "-", 
+                        badge3: emp.type || "-",
+                        dateRange: `${emp.startDate || ""} → ${emp.endDate || ""}`,
+                        location: emp.location || "-"
+                    }))}
                 />
 
                 <ReviewResumeSection 
                     icon={<FileUp size={14} />}
-                    file={{ name: "Dadapir_Shaikh_Resume.pdf", size: "108.6 KB" }}
+                    file={resumeFile ? { 
+                        name: resumeFile.name, 
+                        size: `${(resumeFile.size / 1024).toFixed(1)} KB` 
+                    } : { name: "No file uploaded", size: "" }}
                 />
             </div>
 

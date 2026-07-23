@@ -3,31 +3,61 @@ import Dropdown from "../ui/Dropdown";
 import FormCard from "../ui/FormCard";
 import {BriefcaseBusiness ,GraduationCap,Badge,BookOpen,Clock3,Calendar,CalendarCheck2,MapPin,User,MoveRight,Cake,VenusAndMars,House,Building2,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail, ClockCheckIcon} from "lucide-react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MultiFormCard from "../ui/MultiFormCard";
-export default function EmploymentInformation() {
-    console.log("EmploymentInformation rendered with responsive grids");
-    
-const [employments, setEmployments] = useState([
-    { id: 1 }
-         
-]);
-const handleAddEmployment = () => {
+export default function EmploymentInformation({ submitTrigger, onValidationResult }) {
+    const [employments, setEmployments] = useState([
+        { id: 1, payrollCompany: "", company: "", stream: "", type: "", startDate: "", endDate: "", location: "" }
+    ]);
+    const [errors, setErrors] = useState([{}]);
 
-  setEmployments([
-    ...employments,
-    {
-      id: Date.now(),
-    },
-  ]);
-};
+    const handleAddEmployment = () => {
+        setEmployments([
+            ...employments,
+            { id: Date.now(), payrollCompany: "", company: "", stream: "", type: "", startDate: "", endDate: "", location: "" },
+        ]);
+        setErrors([...errors, {}]);
+    };
 
-const handleRemoveEmployment = (id) => {
+    const handleRemoveEmployment = (id) => {
+        const index = employments.findIndex(item => item.id === id);
+        setEmployments(employments.filter(item => item.id !== id));
+        setErrors(errors.filter((_, i) => i !== index));
+    };
 
-    setEmployments(
-        employments.filter(item => item.id !== id)
-    );
-};
+    const handleChange = (index, field, value) => {
+        const newEmployments = [...employments];
+        newEmployments[index][field] = value;
+        setEmployments(newEmployments);
+        
+        const newErrors = [...errors];
+        if (newErrors[index]) {
+            newErrors[index] = { ...newErrors[index], [field]: "" };
+        }
+        setErrors(newErrors);
+    };
+
+    useEffect(() => {
+        if (submitTrigger?.count > 0 && submitTrigger?.step === 3) {
+            const newErrors = employments.map(emp => {
+                const err = {};
+                if (!emp.payrollCompany?.trim()) err.payrollCompany = "Required";
+                if (!emp.company?.trim()) err.company = "Required";
+                if (!emp.stream?.trim()) err.stream = "Required";
+                if (!emp.type?.trim()) err.type = "Required";
+                if (!emp.startDate) err.startDate = "Required";
+                if (!emp.endDate) err.endDate = "Required";
+                if (!emp.location?.trim()) err.location = "Required";
+                return err;
+            });
+            setErrors(newErrors);
+
+            const hasErrors = newErrors.some(err => Object.keys(err).length > 0);
+            if (!hasErrors) {
+                onValidationResult(true, { employments });
+            }
+        }
+    }, [submitTrigger, employments]);
     return (
       <div>
             <FormCard
@@ -52,9 +82,10 @@ const handleRemoveEmployment = (id) => {
                 <Input
                 label="Payroll Company"
                 type="text"
-                placeholder="Enter College/University Name"
-                value=""
-                onChange={() => {}}
+                placeholder="Enter Company Name"
+                value={employment.payrollCompany}
+                onChange={(e) => handleChange(index, 'payrollCompany', e.target.value)}
+                error={errors[index]?.payrollCompany}
                 className="w-full"
                 labelIcon ={<Building2/>}
                 required={true} 
@@ -63,9 +94,10 @@ const handleRemoveEmployment = (id) => {
                 label="Company"
                 type="text"
                 placeholder="Enter Company Name"
-                value=""
+                value={employment.company}
+                onChange={(e) => handleChange(index, 'company', e.target.value)}
+                error={errors[index]?.company}
                 labelIcon ={<Badge/>}
-                onChange={() => {}}
                 required={true} 
                 />
                 
@@ -74,10 +106,10 @@ const handleRemoveEmployment = (id) => {
                 labelIcon={<BookOpen />}
                 type="text"
                 placeholder="Enter Stream"
-                value=""
-                onChange={() => {}}
+                value={employment.stream}
+                onChange={(e) => handleChange(index, 'stream', e.target.value)}
+                error={errors[index]?.stream}
                 required={true} 
-                
                 />
                 
                 <Dropdown
@@ -88,8 +120,9 @@ const handleRemoveEmployment = (id) => {
                         {value:"Part-Time", label:"Part-Time"},
                         {value:"Distance", label:"Distance"}
                         ]}
-                        value=""
-                        onChange={() => {}}
+                        value={employment.type}
+                        onChange={(val) => handleChange(index, 'type', val)}
+                        error={errors[index]?.type}
                         required={true}
                         className="w-full h-[42px]"
                         placeholder="Select Type"
@@ -102,8 +135,9 @@ const handleRemoveEmployment = (id) => {
                 labelIcon={<Calendar />}
                 type="date"
                 placeholder="dd-mm-yyyy"
-                value=""
-                onChange={() => {}}
+                value={employment.startDate}
+                onChange={(e) => handleChange(index, 'startDate', e.target.value)}
+                error={errors[index]?.startDate}
                 required={true} 
                 className="font-mono text-slate-500 text-[12px]"
                 />
@@ -112,8 +146,9 @@ const handleRemoveEmployment = (id) => {
                 labelIcon={<CalendarCheck2 />}
                 type="date"
                 placeholder="dd-mm-yyyy"
-                value=""
-                onChange={() => {}}
+                value={employment.endDate}
+                onChange={(e) => handleChange(index, 'endDate', e.target.value)}
+                error={errors[index]?.endDate}
                 required={true} 
                 className="font-mono text-slate-500 text-[12px]"
                 />
@@ -121,12 +156,12 @@ const handleRemoveEmployment = (id) => {
                 label="Location"
                 type="text"
                 placeholder="Enter Location"
-                value=""
+                value={employment.location}
+                onChange={(e) => handleChange(index, 'location', e.target.value)}
+                error={errors[index]?.location}
                 labelIcon ={<MapPin />}
-                onChange={() => {}}
                 required={true} 
                 />
-                
             </div>
             </MultiFormCard >
     ))

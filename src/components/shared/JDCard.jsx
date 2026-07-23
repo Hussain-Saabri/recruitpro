@@ -48,7 +48,8 @@ export default function JDCard({ jd, onAddClick }) {
           {jd.filled} / {jd.total}
         </div>
         <Button 
-          onClick={() => navigate('/add') }
+          onClick={() => navigate('/add', { state: { jdData: jd } }) }
+          
           className="bg-brand-500 hover:bg-brand-600 text-white rounded-md px-4 py-1.5 h-8 gap-1.5 text-xs font-semibold border-none"
         >
           <UserPlus size={14} strokeWidth={2.5} /> Add
