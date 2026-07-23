@@ -24,6 +24,8 @@ export default function ResumeUpload({ submitTrigger, onValidationResult }) {
 
             if (Object.keys(newErrors).length === 0) {
                 onValidationResult(true, { resumeFile: selectedFile });
+            } else {
+                onValidationResult(false, { resumeFile: null });
             }
         }
     }, [submitTrigger, selectedFile]);
@@ -36,7 +38,7 @@ export default function ResumeUpload({ submitTrigger, onValidationResult }) {
        const file = event.target.files[0];
        setSelectedFile(file);
         console.log(selectedFile)
-       if (file.type === "application/pdf") {
+       if (file && file.type === "application/pdf") {
         const url = URL.createObjectURL(file);
         setPreviewUrl(url);
     } 
@@ -48,7 +50,10 @@ export default function ResumeUpload({ submitTrigger, onValidationResult }) {
                 title="Resume Upload"               
                 icon ={<FileUp  />}
             >   
-            <div className="border-2 border-dashed mb-2 border-brand-100 rounded-[5px] py-8 px-6 flex flex-col gap-3 items-center justify-center text-center">
+            <div 
+                onClick={handleResumeUpload}
+                className="border-2 border-dashed mb-2 border-brand-100 hover:border-brand-300 hover:bg-brand-50/50 rounded-[5px] py-8 px-6 flex flex-col gap-3 items-center justify-center text-center cursor-pointer transition-colors"
+            >
                 <FontAwesomeIcon icon={faCloudArrowUp} style={{color: "rgb(177, 151, 252)",fontSize: "50px",}} />
                 <h3  className="text-sm font-semibold text-slate-800">
                 Drag &amp; Drop your resume here
@@ -99,8 +104,11 @@ export default function ResumeUpload({ submitTrigger, onValidationResult }) {
          onClick={() => {
         setSelectedFile(null);
         setPreviewUrl(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
     }}
-        className="border bg-slate-100 hover:bg-slate-200 text-black border-gray-200 text-[12.5px] font-semibold rounded-[5px] py-1 px-2 hover:bg-gray-100 cursor-pointer"
+        className="border bg-slate-100 hover:bg-slate-200 text-black border-gray-200 text-[12.5px] font-semibold rounded-[5px] py-1 px-2 cursor-pointer"
       >
         X
       </Button>

@@ -13,7 +13,6 @@ export function useRoleNavigation() {
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
         { id: "jds", title: "JDs", path: "/jds", icon: FileText },
-        { id: "add-jd", title: "Add JD", path: "/add", icon: PlusCircle },
       ];
     
     case "admin":

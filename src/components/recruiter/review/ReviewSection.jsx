@@ -14,13 +14,13 @@ export default function ReviewSection({
     )}>
       {/* Header */}
       <div className="flex items-center gap-2 border-b border-violet-100 bg-violet-50/40 px-3 py-1.5">
-        <div className="flex h-5 w-5 items-center justify-center rounded bg-violet-100 text-violet-600">
+        <div className="flex items-center justify-center text-brand-500">
           {icon}
         </div>
 
-        <h2 className="text-[12.5px] font-semibold text-slate-800">
+        <p className="text-[12.5px] font-semibold text-brand-500 mt-[1px]">
           {title}
-        </h2>
+        </p>
       </div>
 
       {/* Body */}

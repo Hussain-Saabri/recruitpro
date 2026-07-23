@@ -41,13 +41,44 @@ export default function EducationalInformation({submitTrigger,onValidationResult
                 if (!edu.startDate) err.startDate = "Required";
                 if (!edu.endDate) err.endDate = "Required";
                 if (!edu.location?.trim()) err.location = "Required";
+
+                if (edu.startDate && edu.endDate) {
+                    if (new Date(edu.endDate) < new Date(edu.startDate)) {
+                        err.endDate = "End date cannot be less than start date";
+                    }
+                }
+
                 return err;
             });
+
+            // Check for date overlaps between education blocks
+            for (let i = 0; i < educations.length; i++) {
+                for (let j = i + 1; j < educations.length; j++) {
+                    const edu1 = educations[i];
+                    const edu2 = educations[j];
+                    
+                    if (edu1.startDate && edu1.endDate && edu2.startDate && edu2.endDate) {
+                        const start1 = new Date(edu1.startDate);
+                        const end1 = new Date(edu1.endDate);
+                        const start2 = new Date(edu2.startDate);
+                        const end2 = new Date(edu2.endDate);
+
+                        // If dates overlap
+                        if (start1 <= end2 && start2 <= end1) {
+                            newErrors[i].startDate = newErrors[i].startDate || `Overlap with Educational #${j + 1}`;
+                            newErrors[j].startDate = newErrors[j].startDate || `Overlap with Educational #${i + 1}`;
+                        }
+                    }
+                }
+            }
+
             setErrors(newErrors);
 
             const hasErrors = newErrors.some(err => Object.keys(err).length > 0);
             if (!hasErrors) {
                 onValidationResult(true, { educations });
+            } else {
+                onValidationResult(false, null);
             }
         }
     }, [submitTrigger, educations]);
@@ -154,7 +185,7 @@ export default function EducationalInformation({submitTrigger,onValidationResult
                 <Input
                 label="Location"
                 type="text"
-                placeholder="Enter Location"
+                placeholder="Enter Education Location"
                 value={education.location}
                 labelIcon ={<MapPin />}
                 onChange={(e) => handleChange(index, 'location', e.target.value)}

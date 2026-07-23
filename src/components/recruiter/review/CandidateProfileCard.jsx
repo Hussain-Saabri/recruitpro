@@ -32,15 +32,15 @@ export default function CandidateProfileCard({
           />
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-black">
+            <p className="text-[15px] font-bold text-black">
               {fullName}
-            </h2>
+            </p>
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center  gap-2">
               {role && (
                 <Badge
                   variant="secondary"
-                  className="gap-1"
+                  className="gap-1 bg-brand-100 text-brand-600 border border-gray-100"
                 >
                   <Briefcase size={14} />
                   {role}
@@ -50,7 +50,7 @@ export default function CandidateProfileCard({
               {location && (
                 <Badge
                   variant="outline"
-                  className="gap-1"
+                  className="gap-1 bg-brand-100 text-brand-600 border border-gray-100"
                 >
                   <MapPin size={14} />
                   {location}

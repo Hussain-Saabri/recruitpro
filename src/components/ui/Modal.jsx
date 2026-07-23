@@ -46,19 +46,19 @@ export default function Modal({
         )}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 px-6 border-b border-slate-100 sticky top-0 bg-white z-10 rounded-t-xl">
-          <div className="flex items-center gap-3">
+        <div className="flex items-start justify-between p-4 px-6 border-b border-slate-100 sticky top-0 bg-white z-10 rounded-t-xl gap-4">
+          <div className="flex items-start gap-3">
             {icon && (
-              <div className="w-8 h-8 bg-brand-50 rounded-full flex items-center justify-center text-brand-600">
+              <div className="shrink-0 flex items-center justify-center text-brand-500 mt-[5px]">
                 {icon}
               </div>
             )}
-            <h2 className="text-[17px] font-bold text-slate-800 m-0">{title}</h2>
+            <p className="text-[16px] leading-snug font-bold text-brand-500 tracking-tight m-0 pt-1">{title}</p>
           </div>
           
           <button
             onClick={onClose}
-            className="p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-red-500 transition-colors cursor-pointer"
+            className="p-1.5 shrink-0 rounded-md text-black hover:text-white hover:bg-red-500 transition-colors cursor-pointer mt-0.5"
           >
             <X size={20} strokeWidth={2.5} />
           </button>
@@ -70,23 +70,22 @@ export default function Modal({
         </div>
         
         {/* Modal Footer */}
-        <div className="p-4 px-6 border-t gap-2 border-slate-100 bg-white rounded-b-xl flex flex-col-reverse sm:flex-row sm:justify-end shrink-0">
+        <div className="p-4 px-6 border-t gap-3 border-slate-100 bg-slate-50/50 rounded-b-xl flex flex-col-reverse sm:flex-row sm:justify-end shrink-0">
           {cancelButton && (
           <Button
             onClick={onClose}
             variant="outline"
-            className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:border-brand-500 hover:text-brand-600 transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center"
+            className="px-4 py-2 text-sm text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5"
           >
-          {cancelButtonIcon ? cancelButtonIcon  : <X size={20} strokeWidth={2.5} />} {cancelButton || "Cancel"}
+          {cancelButtonIcon ? cancelButtonIcon  : <X size={16} strokeWidth={2.5} />} {cancelButton || "Cancel"}
           </Button>
           )}
           {submitButton && (<Button
             onClick={onSubmit}
-            variant="outline"
             disabled={disabled}
-            className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:border-brand-500 hover:text-brand-600 transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center"
+            className="px-4 py-2 text-sm text-white bg-brand-600 hover:bg-brand-700 border border-transparent shadow-sm transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-           {submitButtonIcon ? submitButtonIcon  : <SendHorizonal  size={20} strokeWidth={2.5} />}{submitButton || "Submit"}
+           {submitButtonIcon ? submitButtonIcon  : <SendHorizonal size={16} strokeWidth={2.5} />}{submitButton || "Submit"}
           </Button>)}
           
         </div>

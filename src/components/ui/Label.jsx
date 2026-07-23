@@ -14,7 +14,7 @@ export default function Label({
       {...props}
     >
       {children}
-      {required && <span className="text-rose-500 ml-1 font-bold">*</span>}
+      {required && <span className="text-rose-500 font-bold ml-1">*</span>}
     </label>
   );
 }

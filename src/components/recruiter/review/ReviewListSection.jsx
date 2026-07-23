@@ -17,13 +17,13 @@ export default function ReviewListSection({
       {/* Header */}
       <div className="flex items-center justify-between border-b border-violet-100 bg-violet-50/40 px-3 py-1.5">
         <div className="flex items-center gap-2">
-            <div className="flex h-5 w-5 items-center justify-center rounded bg-violet-100 text-violet-600">
+            <div className="flex items-center justify-center text-brand-500">
             {icon}
             </div>
 
-            <h2 className="text-[12.5px] font-semibold text-slate-800">
+            <p className="text-[12.5px] font-semibold text-brand-500 mt-[1px]">
             {title}
-            </h2>
+            </p>
         </div>
         <div className="bg-violet-100 text-violet-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">
             {items.length} record(s)
@@ -80,8 +80,8 @@ export default function ReviewListSection({
                         )}
                     </div>
 
-                    <div className="flex items-center gap-3 text-slate-400 text-[11.5px] font-medium mt-0.5">
-                        <div className="flex items-center gap-1">
+                    <div className="flex items-center  text-slate-400 text-[9px] font-medium mt-0.5">
+                        <div className="flex items-center">
                             <Calendar size={12} />
                             {item.dateRange}
                         </div>

@@ -20,8 +20,11 @@ export default function Dropdown({
   className = "",
   wrapperClassName = "",
   error = "",
+  direction = "down",
+  searchable = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
 
   const selectedOption =
@@ -29,6 +32,16 @@ export default function Dropdown({
     (defaultValue
       ? options.find((opt) => opt.value === defaultValue)
       : null);
+
+  const filteredOptions = options.filter(opt => 
+    opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchTerm("");
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -54,10 +67,10 @@ export default function Dropdown({
       {(label || labelIcon || icon) && (
         <Label
           required={required}
-          className="flex items-center gap-1.5"
+          className="flex items-center"
         >
           {(labelIcon || icon) && (
-            <span className="text-brand-600 flex items-center justify-center [&>svg]:w-3.5 [&>svg]:h-3.5">
+            <span className="text-brand-600 flex items-center justify-center [&>svg]:w-3.5 [&>svg]:h-3.5 mr-1.5 mt-[1px]">
               {labelIcon || icon}
             </span>
           )}
@@ -86,7 +99,7 @@ export default function Dropdown({
         >
           <span
             className={cn(
-              "truncate pr-2",
+              "truncate pr-2 text-[14px]",
               !selectedOption &&
                 "text-gray-500 text-[12px]"
             )}
@@ -100,48 +113,75 @@ export default function Dropdown({
             size={14}
             className={cn(
               "text-gray-500 transition-transform",
-              isOpen && "rotate-180"
+              isOpen && direction === "down" && "rotate-180",
+              isOpen && direction === "up" && "rotate-0",
+              !isOpen && direction === "up" && "rotate-180"
             )}
           />
         </button>
 
         {isOpen && (
-          <div className="absolute z-50 mt-1 min-w-full w-max max-w-[85vw] rounded-md border border-gray-200 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95">
-            {options.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => {
-                  onChange(option.value);
-                  setIsOpen(false);
-                }}
-                className={cn(
-                  "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-[13px] outline-none transition-colors hover:bg-gray-100 hover:text-gray-900 whitespace-nowrap",
+          <div
+            className={cn(
+              "absolute z-50 w-full max-h-60 overflow-y-auto overflow-x-hidden rounded-md border border-gray-200 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95",
+              direction === "up" ? "bottom-full mb-1" : "top-full mt-1"
+            )}
+          >
+            {searchable && (
+              <div className="sticky top-0 z-10 bg-white p-1 pb-2">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full rounded border border-gray-200 px-2 py-1.5 text-xs outline-none focus:border-brand-500 bg-gray-50"
+                  autoFocus
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            )}
+            
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => {
+                    onChange(option.value);
+                    setIsOpen(false);
+                  }}
+                  className={cn(
+                    "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-[13px] text-left outline-none transition-colors hover:bg-gray-100 hover:text-gray-900",
 
-                  selectedOption?.value === option.value &&
-                    "font-medium text-brand-500 hover:text-brand-600"
-                )}
-              >
-                {selectedOption?.value === option.value && (
-                  <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-brand-500">
-                    <Check
-                      size={14}
-                      strokeWidth={3}
-                    />
-                  </span>
-                )}
+                    selectedOption?.value === option.value &&
+                      "font-medium text-brand-500 hover:text-brand-600"
+                  )}
+                >
+                  {selectedOption?.value === option.value && (
+                    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-brand-500">
+                      <Check
+                        size={14}
+                        strokeWidth={3}
+                      />
+                    </span>
+                  )}
 
-                {option.label}
-              </button>
-            ))}
+                  <span className="block w-full">{option.label}</span>
+                </button>
+              ))
+            ) : (
+              <div className="px-2 py-3 text-xs text-center text-gray-500">
+                No results found
+              </div>
+            )}
           </div>
         )}
       </div>
 
       {error && (
-        <div className="mt-1 flex items-center gap-1 text-xs font-medium text-red-500">
-          <CircleAlert size={14} />
-          <span>{error}</span>
+        <div className="mt-1 flex items-start gap-1 text-[12.5px] font-medium text-red-500">
+          <CircleAlert size={14} className="shrink-0 mt-[2px]" />
+          <span className="leading-tight">{error}</span>
         </div>
       )}
     </div>

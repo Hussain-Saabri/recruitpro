@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useRoleNavigation } from "../../hooks/useRoleNavigation";
+import { useLocation } from "react-router-dom";
 
 import NavItem from "./NavItem";
 import ProfileMenu from "./ProfileMenu";
 import MobileDrawer from "./MobileDrawer";
 
-import { Rocket, Menu } from "lucide-react";
+import { Rocket, Menu, PlusCircle } from "lucide-react";
 
 export default function Navbar() {
   const { user, logout } = useAuthStore();
-  const navItems = useRoleNavigation();
+  const baseNavItems = useRoleNavigation();
+  const location = useLocation();
+
+  const navItems = [...baseNavItems];
+  if (location.pathname === "/add") {
+    navItems.push({ id: "add-jd", title: "Add JD", path: "/add", icon: PlusCircle });
+  }
+
   console.log("navItems", navItems);
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
