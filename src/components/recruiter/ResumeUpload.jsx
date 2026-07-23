@@ -6,11 +6,27 @@ import { FaFilePdf  } from "react-icons/fa6"
 import { Button,Input } from "../ui";
 import { useRef ,useState} from "react";
 
-export default function ResumeUpload() {
+import { useEffect } from "react";
+export default function ResumeUpload({ submitTrigger, onValidationResult }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
    
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (submitTrigger?.count > 0 && submitTrigger?.step === 5) {
+            const newErrors = {};
+            if (!selectedFile) {
+                newErrors.file = "Resume upload is required";
+            }
+            setErrors(newErrors);
+
+            if (Object.keys(newErrors).length === 0) {
+                onValidationResult(true, { resumeFile: selectedFile });
+            }
+        }
+    }, [submitTrigger, selectedFile]);
     {/*Resume Upload Button */}  
     const handleResumeUpload = () => {
         fileInputRef.current.click();    
@@ -51,7 +67,7 @@ export default function ResumeUpload() {
                 <p className="text-[12px] text-slate-400">
                 PDF, DOC, DOCX supported • Max 10 MB
                 </p>
-                
+                {errors.file && <p className="text-red-500 text-sm font-semibold">{errors.file}</p>}
                 
             </div>  
            {
