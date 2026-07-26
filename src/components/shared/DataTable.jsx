@@ -20,8 +20,8 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
       {(title || rightActions) && (
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 gap-4 border-b border-gray-100">
           <div className="flex items-center gap-2">
-            {icon && <div className="text-brand-600 bg-brand-50 p-1.5 rounded-md">{icon}</div>}
-            <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>
+            {icon && <div className="text-brand-600   ">{icon}</div>}
+            <p className="text-[15px] font-bold text-gray-900">{title}</p>
           </div>
           {rightActions && (
             <div className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full">
         <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

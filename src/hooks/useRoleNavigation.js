@@ -38,13 +38,13 @@ export function useRoleNavigation() {
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       ];
 
-    case "account manager":
+    case "accountmanager":
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
         { id: "manage", title: "Manage", path: "/manage", icon: Users },
       ];
 
-    case "team leader":
+    case "teamleader":
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       ];
