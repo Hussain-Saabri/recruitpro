@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Building, GraduationCap, Briefcase, FileUp } from "lucide-react";
-import CandidateProfileCard from "./CandidateProfileCard";
+import CandidateProfileCard from "../../shared/CandidateProfileCard";
 import ReviewSection from "./ReviewSection";
 import ReviewListSection from "./ReviewListSection";
 import ReviewResumeSection from "./ReviewResumeSection";

@@ -24,7 +24,7 @@ export const useAuthStore = create((set) => ({
       name = "David Leader";
       initials = "DL";
     } else if (email.includes("manager")) {
-      role = "teamLeader";
+      role = "accountManager";
       name = "Alex Manager";
       initials = "AM";
     }

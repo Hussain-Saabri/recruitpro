@@ -1,6 +1,6 @@
 import { Briefcase, MapPin, Clock } from "lucide-react";
-import Avatar from "../../ui/Avatar";
-import Badge from "../../ui/Badge";
+import Avatar from "../ui/Avatar";
+import Badge from "../ui/Badge";
 
 export default function CandidateProfileCard({
   candidate,

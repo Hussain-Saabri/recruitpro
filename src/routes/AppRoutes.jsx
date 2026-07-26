@@ -45,8 +45,8 @@ function DashboardRouter() {
     case 'superadmin': return <SuperAdminDashboard />;
     case 'admin': return <AdminDashboard />;
     case 'recruiter': return <RecruiterDashboard />;
-    case 'account manager': return <AccountManagerDashboard />;
-    case 'team leader': return <TeamLeaderDashboard />;
+    case 'accountmanager': return <AccountManagerDashboard />;
+    case 'teamleader': return <TeamLeaderDashboard />;
     default: return <Navigate to="/login" replace />;
   }
 }
@@ -58,7 +58,7 @@ function ManageRouter() {
   switch (role) {
     case 'superadmin':
     case 'admin': return <AdminManage />;
-    case 'account manager': return <AccountManagerManage />;
+    case 'accountmanager': return <AccountManagerManage />;
     // Other roles don't have manage, send them to dashboard
     default: return <Navigate to="/dashboard" replace />;
   }
