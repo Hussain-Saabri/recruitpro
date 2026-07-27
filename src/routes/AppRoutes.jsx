@@ -23,6 +23,7 @@ import AccountManagerManage from "../pages/account-manager/AccountManagerManage"
 
 // Team Leader Pages
 import TeamLeaderDashboard from "../pages/team-leader/TeamLeaderDashboard";
+import TeamLeaderManage from "../pages/team-leader/TeamLeaderManage";
 
 // Master Pages
 
@@ -59,6 +60,7 @@ function ManageRouter() {
     case 'superadmin':
     case 'admin': return <AdminManage />;
     case 'accountmanager': return <AccountManagerManage />;
+    case 'teamleader': return <TeamLeaderManage />;
     // Other roles don't have manage, send them to dashboard
     default: return <Navigate to="/dashboard" replace />;
   }

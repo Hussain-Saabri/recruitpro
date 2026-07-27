@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, PlusCircle, Users, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, PlusCircle, Users, Settings, FolderKanban } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 export function useRoleNavigation() {
@@ -47,6 +47,7 @@ export function useRoleNavigation() {
     case "teamleader":
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+        { id: "manage", title: "Manage", path: "/manage", icon: FolderKanban },
       ];
 
     default:
