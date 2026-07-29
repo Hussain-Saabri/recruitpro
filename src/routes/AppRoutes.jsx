@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 
-// Pages
+// Login Page
 import Login from "../pages/auth/Login";
 
 
@@ -39,9 +39,11 @@ import Navbar from "../components/layout/Navbar";
 
 // Smart Routers
 function DashboardRouter() {
+  console.log("Inside the dashboard router");
   const { user } = useAuthStore();
-  const role = user?.role?.toLowerCase() || 'admin'; // fallback for testing
-
+  console.log("user",user);
+  const role = user?.role?.toLowerCase() || 'admin'; 
+  console.log("role",role);
   switch (role) {
     case 'superadmin': return <SuperAdminDashboard />;
     case 'admin': return <AdminDashboard />;
@@ -61,12 +63,11 @@ function ManageRouter() {
     case 'admin': return <AdminManage />;
     case 'accountmanager': return <AccountManagerManage />;
     case 'teamleader': return <TeamLeaderManage />;
-    // Other roles don't have manage, send them to dashboard
+    
     default: return <Navigate to="/dashboard" replace />;
   }
 }
 
-// Layout wrapper for authenticated users
 function AppLayout() {
   const { user } = useAuthStore();
 
@@ -78,7 +79,7 @@ function AppLayout() {
     <div className="w-full min-h-screen bg-white flex flex-col">
       <Navbar />
       <main className="flex-1 p-4 md:p-4 w-full box-border">
-        <Outlet />
+      <Outlet />
       </main>
     </div>
   );
@@ -93,9 +94,10 @@ export default function AppRoutes() {
 
         {/* Authenticated Layout Routes */}
         <Route element={<AppLayout />}>
+          
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           
-          {/* Smart Routes */}
+          
           <Route path="/dashboard" element={<DashboardRouter />} />
           <Route path="/manage" element={<ManageRouter />} />
           

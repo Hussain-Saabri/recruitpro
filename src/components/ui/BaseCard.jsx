@@ -5,7 +5,7 @@ export default function BaseCard({ children,icon, title,subtitle,className, ...p
   return (
     <div 
       className={cn(
-        "bg-white border border-slate-200 rounded-[5px] p-5 border-b   ",
+        "bg-white border border-slate-200 rounded-[5px]  border-b   ",
         className
       )}
       {...props}

@@ -1,12 +1,14 @@
-import { LayoutDashboard, FileText, PlusCircle, Users, Settings, FolderKanban } from "lucide-react";
+import { LayoutDashboard, FileText, Users, Settings, FolderKanban } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 export function useRoleNavigation() {
+  console.log("Inside the useRoleNavigation");
   const { user } = useAuthStore();
-  
+  console.log("user",user);
   if (!user) return [];
 
   const role = user?.role?.toLowerCase();
+  console.log("role",role);
 
   switch (role) {
     case "recruiter":

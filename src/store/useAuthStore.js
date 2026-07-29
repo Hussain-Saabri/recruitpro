@@ -7,6 +7,7 @@ export const useAuthStore = create((set) => ({
   })(),
 
   login: (email) => {
+    console.log("email",email);
     let role = "admin";
     let name = "Mike Admin";
     let initials = "MA";

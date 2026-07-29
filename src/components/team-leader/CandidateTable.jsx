@@ -66,7 +66,7 @@ export default function CandidateTable() {
 
   const handleStatusUpdate = (candidate, newStatus) => {
     setTableData(prevData => prevData.map(item => 
-      // Using email and id as unique identifiers for now
+    
       item.email === candidate.email && item.id === candidate.id && item.name === candidate.name
         ? { ...item, status: newStatus }
         : item

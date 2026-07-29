@@ -1,9 +1,8 @@
 import PageHeader from "@/components/shared/PageHeader";
-import { useAuthStore } from "@/store/useAuthStore";
 import JDCard from "@/components/shared/JDCard";
 export default function Jds() {
-  const user = useAuthStore();
-  const role = user.role;
+  
+  
   return (
     <div className="flex flex-col gap-6 font-sans text-left w-full p-2">
       <PageHeader 
@@ -11,7 +10,7 @@ export default function Jds() {
         subtitle="Select JD to add candidates"
       />
       
-      {/* Grid of JD Cards */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <JDCard 
           jd={{

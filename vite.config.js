@@ -15,7 +15,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://su-tech.runasp.net',
-        changeOrigin: true,
+        changeOrigin: true
       }
     }
   }
