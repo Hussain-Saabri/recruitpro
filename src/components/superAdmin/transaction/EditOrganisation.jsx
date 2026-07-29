@@ -394,16 +394,19 @@ export function EditOrganisation({ onClose }) {
                 <div className="flex flex-row gap-3 mt-2 pt-4 border-t border-slate-100 justify-end">
                     <Button
                         variant="outline"
-                        size="sm"
-                        onClick={() => navigate("/dashboard")}
-                        className="flex items-center gap-1 bg-red-500 text-white hover:text-white cursor-pointer text-[13px] px-2 py-4 rounded-md font-medium hover:bg-red-600 transition-colors">
+                        onClick={() => {
+                            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                            navigate("/dashboard");
+                        }}
+                        className="flex items-center gap-1 text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 hover:text-slate-900 cursor-pointer text-[13px] px-5 py-2 rounded-lg font-medium transition-colors"
+                    >
                        Cancel
                     </Button>
                     <Button
                         variant="primary"
-                        size="sm"
                         onClick={handleSubmit}
-                        className="flex items-center gap-2 bg-brand-500 text-white cursor-pointer text-[13px] px-2 py-4 rounded-md font-medium hover:bg-brand-600 transition-colors">
+                        className="flex items-center gap-1 bg-brand-500 text-white hover:bg-brand-600 cursor-pointer text-[13px] px-5 py-2 rounded-lg font-medium transition-colors shadow-sm shadow-brand-500/20"
+                    >
                         Update Organisation
                     </Button>
                 </div>
