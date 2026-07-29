@@ -1,5 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Edit2,Globe, Trash2, ReceiptText,ExternalLink,CreditCard,Mail, Phone, MapPin, Table, Code, Activity, Settings } from 'lucide-react';
+
+const AddressCell = ({ row }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div 
+      className="relative flex flex-col outline-none" 
+      tabIndex="0"
+      onClick={(e) => {
+        // Prevent default to avoid focusing acting weirdly on mobile, toggle tooltip
+        setShowTooltip(!showTooltip);
+      }}
+      onBlur={() => setShowTooltip(false)}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <span className="block text-[13px] font-medium text-gray-900 truncate w-[150px] cursor-pointer">
+        {row.original.address}
+      </span>
+      
+      {/* Custom Tooltip */}
+      {showTooltip && (
+        <div className="absolute left-0 bottom-full mb-2 z-50 transition-opacity duration-200 pointer-events-none">
+          <div className="bg-slate-800 text-white text-[11.5px] font-medium py-1.5 px-3 rounded-lg shadow-xl w-max max-w-[250px] text-wrap leading-tight">
+             {row.original.address}, {row.original.city || ''}, {row.original.state || ''}, {row.original.country || ''} - {row.original.postalCode || ''}
+            <div className="absolute -bottom-1 left-4 w-2 h-2 bg-slate-800 rotate-45"></div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const organisationColumns = [
 
@@ -89,21 +121,7 @@ export const organisationColumns = [
         <span className='text-gray-900 font-semibold'>Address</span>
       </div>
     ),
-    cell: ({ row }) => (
-      <div className="relative group flex flex-col w-fit">
-        <span className="text-[13px] font-medium text-gray-900 truncate max-w-[200px] cursor-pointer">
-          {row.original.address}
-        </span>
-        
-        {/* Custom Tooltip */}
-        <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <div className="bg-slate-800 text-white text-[11.5px] font-medium py-1.5 px-3 rounded-lg shadow-xl w-max max-w-[250px] text-wrap leading-tight">
-            {row.original.address}, {row.original.city}, {row.original.state}, {row.original.country} - {row.original.postalCode}
-            <div className="absolute -bottom-1 left-4 w-2 h-2 bg-slate-800 rotate-45"></div>
-          </div>
-        </div>
-      </div>
-    )
+    cell: ({ row }) => <AddressCell row={row} />
   },
   
   {
