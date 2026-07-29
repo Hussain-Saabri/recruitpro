@@ -11,7 +11,8 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminManage from "../pages/admin/AdminManage";
 import Users from "../pages/admin/Users";
 import SuperAdminDashboard from "../pages/superadmin/SuperAdminDashbaord";
-
+import AddOrganisation from "../pages/superadmin/AddOrganisation";
+import EditOrganisation from "../pages/superadmin/EditOrganisation";
 // Recruiter Pages
 import RecruiterDashboard from "../pages/recruiter/RecruiterDashboard";
 import Jds from "../pages/recruiter/Jds";
@@ -100,7 +101,8 @@ export default function AppRoutes() {
           
           <Route path="/dashboard" element={<DashboardRouter />} />
           <Route path="/manage" element={<ManageRouter />} />
-          
+          <Route path="/add-organisation" element={<AddOrganisation />} />
+          <Route path="/edit-organisation/:id" element={<EditOrganisation />} />
           {/* Admin Specific */}
           <Route path="/users" element={<Users />} />
           
