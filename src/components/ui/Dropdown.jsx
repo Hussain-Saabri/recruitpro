@@ -179,8 +179,8 @@ export default function Dropdown({
       </div>
 
       {error && (
-        <div className="mt-1 flex items-start gap-1 text-[12.5px] font-medium text-red-500">
-          <CircleAlert size={14} className="shrink-0 mt-[2px]" />
+        <div className="mt-1 flex items-center gap-1 text-[12.5px] font-medium text-red-500">
+          <CircleAlert size={14} className="shrink-0" />
           <span className="leading-tight">{error}</span>
         </div>
       )}

@@ -2,8 +2,15 @@ import React from 'react';
 import PageHeader from "../../components/shared/PageHeader";
 import JDAssignmentCard from "../../components/team-leader/JDAssignmentCard";
 import BaseCard from '@/components/ui/BaseCard';
-import { User } from 'lucide-react';
+import { User,Plus } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import { useState } from 'react';
+import JDManagementForm from '@/components/team-leader/JDManagementForm';
 export default function TeamLeaderManage() {
+  const [isCreateJDOpen,setIsCreateJDOpen] = useState(false)
+  const handleCreateJD = () => {
+    setIsCreateJDOpen(true)
+  }
   const jdAssignments = [
     {
       id: 1,
@@ -47,9 +54,19 @@ export default function TeamLeaderManage() {
     <div className="flex flex-col gap-6 font-sans text-left w-full max-w-full overflow-x-hidden p-2">
      <PageHeader
       title="JD Management"
-subtitle="Create, manage and assign JDs"
+      subtitle="Create, manage and assign JDs"
       icon={<User/>}
+       rightAction={
+      <Button
+      variant="primary"
+      size="sm"
+      onClick={handleCreateJD}
+      className="flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white hover:cursor-pointer flex items-center gap-1 text-[12px] text-white px-3 py-2 rounded-md font-medium hover:bg-brand-600 transition-colors">
+      <Plus size={12}/> Create JD
+    </Button>
+  } 
 />
+  {isCreateJDOpen && <JDManagementForm onClose={() => setIsCreateJDOpen(false)} />}
       <BaseCard 
       className="p-0 border border-slate-200  min-h-[500px] flex flex-col "
       title="JD Assignment Dashboard"

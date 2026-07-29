@@ -54,17 +54,7 @@ export default function MobileDrawer({ open, onClose, user, onLogout, navItems }
                 />
               ))}
 
-              {/* Settings Button */}
-              <button
-                onClick={() => {
-                  onClose();
-                  // navigate to settings...
-                }}
-                className="w-full h-11 px-4 rounded-[12px] text-sm font-semibold flex items-center gap-3 text-slate-600 hover:bg-brand-50 hover:text-brand-500 transition-all duration-200 cursor-pointer"
-              >
-                <Settings size={18} strokeWidth={2} />
-                Settings
-              </button>
+              
 
               {/* Logout Button */}
               <button

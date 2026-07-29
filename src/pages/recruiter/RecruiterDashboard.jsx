@@ -61,7 +61,7 @@ export default function RecruiterDashboard() {
      <div className="flex flex-col gap-4 font-sans text-left w-full max-w-full overflow-x-hidden p-2">
           
           <PageHeader 
-            title={`${role === "teamLeader" ? "Team Leader" : role} Dashboard`}
+            title="Recruiter Dashboard"
             subtitle="Efficient pipeline management"
           />
     

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Edit2, Trash2, Mail, Phone, MapPin, Table, Code, Activity, Settings } from 'lucide-react';
+import { Edit2,Globe, Trash2, ReceiptText,ExternalLink,CreditCard,Mail, Phone, MapPin, Table, Code, Activity, Settings } from 'lucide-react';
 
 export const organisationColumns = [
+
+  
   {
     accessorKey: "name",
     header: () => (
       <div className="flex items-center gap-1.5">
         <Table size={13} strokeWidth={2.5} className="text-brand-500" />
-        <span className='text-gray-900 font-semibold'>Organization</span>
+        <span className='text-gray-900 font-semibold'>Name</span>
       </div>
     ),
     cell: ({ row }) => (
@@ -58,6 +60,27 @@ export const organisationColumns = [
       </div>
     )
   },
+   {
+    accessorKey: "website",
+    header: () => (
+      <div className="flex items-center gap-1.5">
+        <Globe size={13} strokeWidth={2.5} className="text-brand-500" />
+        <span className='text-gray-900 font-semibold'>Website</span>
+      </div>
+    ),
+    cell: ({ row }) => (
+  <a
+    href={row.original.website}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-1 text-brand-600 hover:text-brand-700 hover:underline"
+  >
+    
+    <span>{row.original.website}</span>
+    <ExternalLink size={12} />
+  </a>
+)
+  },
   {
     accessorKey: "address",
     header: () => (
@@ -75,13 +98,26 @@ export const organisationColumns = [
         {/* Custom Tooltip */}
         <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
           <div className="bg-slate-800 text-white text-[11.5px] font-medium py-1.5 px-3 rounded-lg shadow-xl w-max max-w-[250px] text-wrap leading-tight">
-            {row.original.address}
+            {row.original.address}, {row.original.city}, {row.original.state}, {row.original.country} - {row.original.postalCode}
             <div className="absolute -bottom-1 left-4 w-2 h-2 bg-slate-800 rotate-45"></div>
           </div>
         </div>
       </div>
     )
   },
+  
+  {
+  accessorKey: "subscriptionPlan",
+  header: () => (
+    <div className="flex items-center gap-1.5">
+      <ReceiptText size={13} strokeWidth={2.5} className="text-brand-500" />
+      <span className="text-gray-900 font-semibold">Subscription Plan</span>
+    </div>
+  ),
+  cell: ({ row }) => (
+    <span>{row.original.subscriptionPlan}</span>
+  ),
+},
   {
     accessorKey: "isActive",
     header: () => (

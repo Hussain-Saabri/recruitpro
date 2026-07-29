@@ -16,10 +16,10 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
   const skeletonRows = Array(5).fill(0);
 
   return (
-    <div className="w-full">
+    <div className="w-full flex-1 flex flex-col relative">
       {(title || rightActions) && (
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 gap-4 border-b border-gray-100">
-          <div className="flex items-center gap-2">
+           <div className="flex items-center gap-2">
             {icon && <div className="text-brand-600   ">{icon}</div>}
             <p className="text-[15px] font-bold text-gray-900">{title}</p>
           </div>
@@ -30,8 +30,8 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-x-auto w-full">
-        <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap">
+      <div className="overflow-x-auto w-full flex-1 cursor-pointer">
+        <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="bg-slate-50/30 border-b border-gray-100">
@@ -61,8 +61,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
             ))
           ) : table.getRowModel().rows.length === 0 ? (
             <tr>
-              <td colSpan={table.getAllColumns().length} className="px-4 py-8 text-center text-slate-500">
-                No data available
+              <td colSpan={table.getAllColumns().length} className="h-24">
               </td>
             </tr>
           ) : (
@@ -79,6 +78,12 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
         </tbody>
       </table>
     </div>
+    
+    {!loading && table.getRowModel().rows.length === 0 && (
+        <div className="absolute inset-0 top-[100px] flex items-center justify-center pointer-events-none">
+          <span className="text-slate-500 text-sm">No data available</span>
+        </div>
+    )}
     </div>
   );
 }

@@ -17,8 +17,7 @@ import {
   EyeOffIcon,
   SignInIcon,
   InfoIcon,
-  UserIcon,
-  UsersIcon,
+  
 } from "../../lib/icons";
 import { toast } from 'sonner'
 import { useAuthStore } from "../../store/useAuthStore";
@@ -37,8 +36,9 @@ export default function LoginComponent() {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
+  //handleDemoAccess function is used to login as a demo user
   const handleDemoAccess = (role) => {
+    console.log("role",role);
     setIsLoading(true);
     let demoEmail = "";
     let demoPass = "password123";
@@ -62,7 +62,7 @@ export default function LoginComponent() {
         demoEmail = "admin@company.com";
     }
 
-    // Simulate standard autofill animation delay
+   
     setTimeout(() => {
       setEmail(demoEmail);
       setPassword(demoPass);
@@ -70,7 +70,7 @@ export default function LoginComponent() {
       
     }, 300);
   };
-
+  //on submitting the button
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -296,7 +296,7 @@ export default function LoginComponent() {
             </Button>
           </Box>
 
-          {/* Demo Access Panel */}
+         
           <Box
             sx={{
               backgroundColor: "#FAF9FF",

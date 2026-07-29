@@ -7,7 +7,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
   const dropdownRef = useRef(null);
   const location = useLocation();
 
-  // Close dropdown when clicking outside
+ 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -21,7 +21,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
   const baseStyles = "font-semibold flex items-center gap-3 transition-all duration-200 cursor-pointer";
 
   const desktopStyles = (isActive) =>
-    `${baseStyles} px-3 py-1.5 rounded-[8px] text-[13px] ${
+    `${baseStyles} px-2 py-1 rounded-[8px] text-[13px] ${
       isActive
         ? "bg-brand-500 text-white shadow-lg shadow-brand-500/20"
         : "text-slate-600 hover:bg-brand-50 hover:text-brand-500"
@@ -34,7 +34,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
         : "text-slate-600 hover:bg-brand-50 hover:text-brand-500"
     }`;
 
-  // If there are children, render a dropdown
+  
   if (children && children.length > 0) {
     const isActive = children.some(child => location.pathname.startsWith(child.path));
     
@@ -87,7 +87,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
       className={({ isActive }) => mobile ? mobileStyles(isActive) : desktopStyles(isActive)}
     >
       {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} />}
-      <span>{title}</span>
+      <span>{title}..</span>
     </NavLink>
   );
 }

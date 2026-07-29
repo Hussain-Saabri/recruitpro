@@ -1,22 +1,27 @@
+
+import api from "./api";
+
+
 export const organizationService = {
-// Get Organisations 
+  // Get Organisations 
   async getOrganizations() {
-    try{
-        const response = await fetch("/api/v1/Organization");
-        const data = await response.json();
-        console.log("response from organsation", data);
-        return data;
-    }catch(error){
-        console.error("API Error:", error);
-        throw error;
+    try {
+      console.log("Inside the Org Service");
+      const response = await api.get('/v1/Organization');
+      console.log("response", response);
+      const data = response.data;
+      console.log("response from organsation", data);
+      return data;
+    } catch (error) {
+      console.error("API Error:", error);
+      throw error;
     }
-   
   },
 
-  
 
-  
 
-  
- 
+
+
+
+
 };

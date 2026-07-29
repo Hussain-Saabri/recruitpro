@@ -1,29 +1,26 @@
 import React, { forwardRef } from "react";
-import Label from "../ui/Label";
+import Label from "./Label";
 import { twMerge } from "tailwind-merge";
 import { CircleAlert } from "lucide-react";
 
-const Input = forwardRef(
+const Textarea = forwardRef(
   (
     {
       label,
       labelIcon,
       id,
-      type = "text",
       placeholder = "",
       value,
       onChange,
       required = false,
       error = "",
       className = "",
-      leftIcon = null,
-      rightIcon = null,
       ...props
     },
     ref
   ) => {
     return (
-      <div className="text-left">
+      <div className="text-left w-full">
         {label && (
           <Label
             htmlFor={id}
@@ -39,45 +36,26 @@ const Input = forwardRef(
           </Label>
         )}
 
-        <div className="relative flex items-center">
-          {leftIcon && (
-            <div className="absolute left-3 text-slate-400 pointer-events-none">
-              {leftIcon}
-            </div>
-          )}
-
-          <input
+        <div className="relative w-full">
+          <textarea
             ref={ref}
             id={id}
-            type={type}
             value={value}
             onChange={onChange}
             placeholder={placeholder}
             required={required}
             className={twMerge(
-              `w-full rounded-[5px] border px-3 py-2 text-[12.5px] text-slate-800 bg-white placeholder:text-gray-500 placeholder:text-[12px]
-               transition-all duration-200 outline-none
-               ${
-                 leftIcon ? "pl-9" : ""
-               }
-               ${
-                 rightIcon ? "pr-9" : ""
-               }
+              `w-full min-h-[80px] rounded-[5px] border px-3 py-2 text-[12.5px] text-slate-800 bg-white placeholder:text-gray-500 placeholder:text-[12px]
+               transition-all duration-200 outline-none resize-y
                ${
                  error
-                   ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+                   ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
                    : "border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
                }`,
               className
             )}
             {...props}
           />
-
-          {rightIcon && (
-            <div className="absolute right-3 text-slate-400 pointer-events-none">
-              {rightIcon}
-            </div>
-          )}
         </div>
 
         {error && (
@@ -91,6 +69,6 @@ const Input = forwardRef(
   }
 );
 
-Input.displayName = "Input";
+Textarea.displayName = "Textarea";
 
-export default Input;
+export default Textarea;

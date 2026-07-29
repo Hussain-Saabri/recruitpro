@@ -36,7 +36,7 @@ export default function OrganisationTable() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-gray-300  overflow-hidden mt-4 relative min-h-[200px]">
+    <div className="w-full bg-white rounded-xl border border-gray-300 overflow-hidden mt-4 relative min-h-[200px] flex flex-col">
       <DataTable 
         loading={loading}
         title="Organization"
