@@ -17,7 +17,12 @@ export const NAV_ITEMS = {
       title: "Dashboard",
       path: "/dashboard",
       icon: LayoutDashboard,
-    },
+    },{
+        id:"add",
+        title:"Add Organisation",
+        path :"/add-organisation",
+        icon:PlusCircle,
+    }
   ],
   admin: [
     {

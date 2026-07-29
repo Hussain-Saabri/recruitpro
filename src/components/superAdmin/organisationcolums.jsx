@@ -33,7 +33,54 @@ const AddressCell = ({ row }) => {
   );
 };
 
-export const organisationColumns = [
+const ActionCell = ({ row, handleEdit }) => {
+  const [hoveredAction, setHoveredAction] = useState(null);
+
+  return (
+    <div className="flex items-center gap-2">
+      <div 
+        className="relative flex items-center justify-center"
+        onMouseEnter={() => setHoveredAction('edit')}
+        onMouseLeave={() => setHoveredAction(null)}
+      >
+        <button 
+          onClick={() => handleEdit(row.original)}
+          className="cursor-pointer p-1.5 border border-slate-200 rounded-full text-slate-500 hover:text-brand-600 hover:border-brand-200 hover:bg-brand-50 transition-colors"
+        >
+          <Edit2 size={14} strokeWidth={2.5} />
+        </button>
+        {hoveredAction === 'edit' && (
+          <div className="absolute left-full ml-2 z-50 flex items-center pointer-events-none">
+            <div className="bg-slate-800 text-white text-[12px] font-medium py-1 px-3 rounded-md shadow-md whitespace-nowrap relative z-10">
+              Edit
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div 
+        className="relative flex items-center justify-center"
+        onMouseEnter={() => setHoveredAction('delete')}
+        onMouseLeave={() => setHoveredAction(null)}
+      >
+        <button 
+          className="cursor-pointer p-1.5 border border-slate-200 rounded-full text-slate-500 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors"
+        >
+          <Trash2 size={14} strokeWidth={2.5} />
+        </button>
+        {hoveredAction === 'delete' && (
+          <div className="absolute right-full mr-2 z-50 flex items-center pointer-events-none">
+            <div className="bg-slate-800 text-white text-[12px] font-medium py-1 px-3 rounded-md shadow-md whitespace-nowrap relative z-10">
+              Delete
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const getorganisationColumns =(handleEdit)=> [
 
   
   {
@@ -108,7 +155,7 @@ export const organisationColumns = [
     className="inline-flex items-center gap-1 text-brand-600 hover:text-brand-700 hover:underline"
   >
     
-    <span>{row.original.website}</span>
+    <span className='text-[13px]'>{row.original.website}</span>
     <ExternalLink size={12} />
   </a>
 )
@@ -164,15 +211,6 @@ export const organisationColumns = [
         <span className='text-gray-900 font-semibold'>Actions</span>
       </div>
     ),
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <button className="p-1.5 border border-slate-200 rounded-md text-slate-400 hover:text-brand-500 hover:border-brand-500 hover:bg-brand-50 transition-colors">
-          <Edit2 size={13} strokeWidth={2.5} />
-        </button>
-        <button className="p-1.5 border border-slate-200 rounded-md text-slate-400 hover:text-rose-500 hover:border-rose-500 hover:bg-rose-50 transition-colors">
-          <Trash2 size={13} strokeWidth={2.5} />
-        </button>
-      </div>
-    )
+    cell: ({ row }) => <ActionCell row={row} handleEdit={handleEdit} />
   }
 ];

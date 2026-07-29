@@ -87,7 +87,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
       className={({ isActive }) => mobile ? mobileStyles(isActive) : desktopStyles(isActive)}
     >
       {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} />}
-      <span>{title}..</span>
+      <span>{title}</span>
     </NavLink>
   );
 }

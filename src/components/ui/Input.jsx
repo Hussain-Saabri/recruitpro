@@ -55,7 +55,7 @@ const Input = forwardRef(
             placeholder={placeholder}
             required={required}
             className={twMerge(
-              `w-full rounded-[5px] border px-3 py-2 text-[12.5px] text-slate-800 bg-white placeholder:text-gray-500 placeholder:text-[12px]
+              `w-full rounded-[5px] border px-3 py-2 text-[12.5px]  bg-white placeholder:text-gray-600 placeholder:text-[12px]
                transition-all duration-200 outline-none
                ${
                  leftIcon ? "pl-9" : ""

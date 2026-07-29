@@ -17,7 +17,7 @@ export default function Navbar() {
   console.log("location",location)
 
   const navItems = [...baseNavItems];
-  console.log("navItems",navItems)
+  console.log("navItems",navItems);
   if (location.pathname === "/add") {
     navItems.push({ id: "add-jd", title: "Add JD", path: "/add", icon: PlusCircle });
   }

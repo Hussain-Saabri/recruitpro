@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, Users, Settings, FolderKanban } from "lucide-react";
+import { LayoutDashboard, FileText,PlusCircle, Users, Settings, FolderKanban } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 export function useRoleNavigation() {
@@ -38,6 +38,7 @@ export function useRoleNavigation() {
     case "superadmin":
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+        { id: "add", title: "Add Organisation", path: "/add-organisation", icon: PlusCircle },
       ];
 
     case "accountmanager":

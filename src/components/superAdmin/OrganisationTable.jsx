@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from '../shared/DataTable';
-import { organisationColumns } from './organisationcolums';
+import { getorganisationColumns } from './organisationcolums';
 import { Button } from '../ui';
 import { Download, RefreshCcw, Table } from "lucide-react";
 import { organizationService } from '../../services/organizationService';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrganisationTable() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate(); 
+  const[selectedRowData,setSelectedRowData] = useState(null);
+  
   const [loading, setLoading] = useState(true);
-
+  const handleEdit = (orgData) => {
+    console.log("CLicked on edit",orgData);
+    setSelectedRowData(orgData);
+    navigate(`/edit-organisation/${orgData.id || orgData._id || '1'}`, { state: { orgDataToEdit: orgData } });
+  };
+  const columns = getorganisationColumns(handleEdit);
   const fetchOrganizations = async () => {
     try {
       setLoading(true);
@@ -52,7 +61,7 @@ export default function OrganisationTable() {
             </>                 
         }
         data={data} 
-        columns={organisationColumns} 
+        columns={columns} 
       />
     </div>
   );
