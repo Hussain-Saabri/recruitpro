@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Settings, LogOut, User } from "lucide-react";
+import { X, LogOut, User, Rocket } from "lucide-react";
 import NavItem from "./NavItem";
 
 export default function MobileDrawer({ open, onClose, user, onLogout, navItems }) {
@@ -31,17 +31,30 @@ export default function MobileDrawer({ open, onClose, user, onLogout, navItems }
             aria-label="Navigation drawer"
             className="fixed left-0 top-0 bottom-0 z-50 w-[280px] bg-white shadow-2xl flex flex-col p-6 border-r border-slate-100 box-border font-sans"
           >
+            {/* Logo & Branding */}
+            <div className="flex items-center absolute left-6 top-5 cursor-default">
+              <div className="w-8 h-8 bg-brand-500 rounded-[8px] flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                <Rocket size={18} strokeWidth={2} />
+              </div>
+              <span className="ml-3 font-bold text-lg text-slate-800 tracking-tight leading-none">
+                RecruitPro
+              </span>
+              <span className="ml-2 bg-emerald-500 text-white text-[10px] font-extrabold rounded-md px-1.5 py-0.5">
+                v1.0
+              </span>
+            </div>
+
             {/* Close Button Inside Drawer */}
             <button
               onClick={onClose}
               aria-label="Close menu"
-              className="absolute right-4 top-4 w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
+              className="absolute right-4 top-5 w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
             >
               <X size={16} strokeWidth={2} />
             </button>
 
             {/* Navigation Items (Top) */}
-            <div className="flex flex-col gap-1.5 mt-8">
+            <div className="flex flex-col gap-2 mt-16">
               {navItems.map((item) => (
                 <NavItem
                   key={item.id}
@@ -62,7 +75,7 @@ export default function MobileDrawer({ open, onClose, user, onLogout, navItems }
                   onClose();
                   onLogout();
                 }}
-                className="w-full h-11 px-4 rounded-[12px] text-sm font-semibold flex items-center gap-3 text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-all duration-200 cursor-pointer"
+                className="w-[75%] h-11 px-4 rounded-[12px] text-sm font-semibold flex items-center gap-3 text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-all duration-200 cursor-pointer"
               >
                 <LogOut size={18} strokeWidth={2} />
                 Logout
