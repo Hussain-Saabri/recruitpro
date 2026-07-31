@@ -18,7 +18,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
   return (
     <div className="w-full flex-1 flex flex-col relative">
       {(title || rightActions) && (
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 gap-4 border-b border-gray-100">
+        <div className="flex flex-row items-center justify-between p-4 gap-4 border-b border-gray-100">
            <div className="flex items-center gap-2">
             {icon && <div className="text-brand-600   ">{icon}</div>}
             <p className="text-[15px] font-bold text-gray-900">{title}</p>

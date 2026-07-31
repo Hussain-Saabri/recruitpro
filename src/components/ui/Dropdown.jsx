@@ -22,6 +22,7 @@ export default function Dropdown({
   error = "",
   direction = "down",
   searchable = false,
+  menuMaxHeight = "max-h-40",
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -123,57 +124,60 @@ export default function Dropdown({
         {isOpen && (
           <div
             className={cn(
-              "absolute z-50 w-full max-h-60 overflow-y-auto overflow-x-hidden rounded-md border border-gray-200 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95",
+              "absolute z-50 w-full flex flex-col overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg animate-in fade-in zoom-in-95",
+              menuMaxHeight,
               direction === "up" ? "bottom-full mb-1" : "top-full mt-1"
             )}
           >
             {searchable && (
-              <div className="sticky top-0 z-10 bg-white p-1 pb-2">
+              <div className="bg-white p-1.5 shrink-0 z-10 border-b border-gray-100">
                 <input
                   type="text"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full rounded border border-gray-200 px-2 py-1.5 text-xs outline-none focus:border-brand-500 bg-gray-50"
+                  className="w-full rounded border border-gray-200 px-2.5 py-1.5 text-[13px] outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 shadow-sm bg-gray-50"
                   autoFocus
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>
             )}
             
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => {
-                    onChange(option.value);
-                    setIsOpen(false);
-                  }}
-                  className={cn(
-                    "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-[13px] text-left outline-none transition-colors hover:bg-gray-100 hover:text-gray-900",
+            <div className="overflow-y-auto overflow-x-hidden flex-1 p-1">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      onChange(option.value);
+                      setIsOpen(false);
+                    }}
+                    className={cn(
+                      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2.5 pr-8 text-[13px] text-left outline-none transition-colors hover:bg-gray-100 hover:text-gray-900",
 
-                    selectedOption?.value === option.value &&
-                      "font-medium text-brand-500 hover:text-brand-600"
-                  )}
-                >
-                  {selectedOption?.value === option.value && (
-                    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-brand-500">
-                      <Check
-                        size={14}
-                        strokeWidth={3}
-                      />
-                    </span>
-                  )}
+                      selectedOption?.value === option.value &&
+                        "font-medium text-brand-500 hover:text-brand-600"
+                    )}
+                  >
+                    <span className="block w-full">{option.label}</span>
 
-                  <span className="block w-full">{option.label}</span>
-                </button>
-              ))
-            ) : (
-              <div className="px-2 py-3 text-xs text-center text-gray-500">
-                No results found
-              </div>
-            )}
+                    {selectedOption?.value === option.value && (
+                      <span className="absolute right-2.5 flex h-3.5 w-3.5 items-center justify-center text-brand-500">
+                        <Check
+                          size={14}
+                          strokeWidth={3}
+                        />
+                      </span>
+                    )}
+                  </button>
+                ))
+              ) : (
+                <div className="px-2 py-3 text-[13px] text-center text-gray-500">
+                  No results found
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
