@@ -441,14 +441,14 @@ export default function CandidatesTable() {
   );
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.01)] overflow-hidden w-full font-sans text-left mt-8">
+    <div className="bg-white rounded-lg border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.01)] overflow-hidden w-full font-sans text-left">
       {/* Table Header Action Bar */}
-      <div className="p-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-row items-center justify-between p-4 gap-4 border-b border-gray-100">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-brand-50 rounded-lg flex items-center justify-center text-brand-500">
+          <div className="text-brand-600">
             <Table size={16} />
           </div>
-          <h2 className="text-lg font-bold text-slate-800 m-0">Candidates</h2>
+          <p className="text-[15px] font-bold text-gray-900">Candidates</p>
         </div>
         <div className="flex items-center gap-2">
           <button
