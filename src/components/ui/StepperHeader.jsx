@@ -12,7 +12,7 @@ export default function StepperHeader({
   return (
     <div className="flex flex-col items-center gap-1 mb-3 w-full">
       {/* Title */}
-      <div className="flex items-center gap-2 text-brand-500 mb-2 mt-1">
+      <div className="flex items-center gap-2 text-brand-500">
         {icon}
         <p className="text-[12.5px] font-bold">{title}</p>
       </div>
@@ -32,7 +32,7 @@ export default function StepperHeader({
       )}
 
       {/* Stepper */}
-      <div className="flex items-center justify-between sm:justify-center mt-2 w-full max-w-xl relative overflow-x-auto pb-2 pt-1 px-1">
+      <div className="flex items-center justify-between sm:justify-center  w-full max-w-xl relative overflow-x-auto pb-2 pt-1 px-1">
         {steps.map((step, index) => {
           const stepNumber = index + 1;
           const isCompleted = stepNumber < currentStep;
