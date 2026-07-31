@@ -14,6 +14,8 @@ export default function Modal({
   onSubmit,
   submitButtonIcon,
   cancelButtonIcon,
+  submitButtonClassName,
+  titleClassName,
   className = "max-w-2xl", // Can pass max-w-2xl, max-w-3xl, etc.
 }) {
   console.log("cancelButtonIcon",cancelButtonIcon)
@@ -53,7 +55,7 @@ export default function Modal({
                 {icon}
               </div>
             )}
-            <p className="text-[16px] leading-snug font-bold text-brand-500 tracking-tight m-0 pt-1">{title}</p>
+            <p className={cn("text-[16px] leading-snug font-bold text-brand-500 tracking-tight m-0 pt-1", titleClassName)}>{title}</p>
           </div>
           
           <button
@@ -83,7 +85,7 @@ export default function Modal({
           {submitButton && (<Button
             onClick={onSubmit}
             disabled={disabled}
-            className="px-4 py-2 text-sm text-white bg-brand-600 hover:bg-brand-700 border border-transparent shadow-sm transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className={cn("px-4 py-2 text-sm text-white bg-brand-600 hover:bg-brand-700 border border-transparent shadow-sm transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed", submitButtonClassName)}
           >
            {submitButtonIcon ? submitButtonIcon  : <SendHorizonal size={16} strokeWidth={2.5} />}{submitButton || "Submit"}
           </Button>)}
