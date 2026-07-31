@@ -38,7 +38,7 @@ export const NAV_ITEMS = {
       icon: FolderKanban,
     },
     {
-      id: "settings",
+      id: "masters",
       title: "Settings",
       icon: Settings,
       children: [
@@ -46,6 +46,12 @@ export const NAV_ITEMS = {
           id: "users",
           title: "Users",
           path: "/masters/users",
+          icon: Users,
+        },
+        {
+          id: "departments",
+          title: "Departments",
+          path: "/masters/departments",
           icon: Users,
         },
         {

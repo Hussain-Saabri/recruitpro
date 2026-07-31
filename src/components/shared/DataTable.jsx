@@ -51,10 +51,16 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
         <tbody className="divide-y divide-gray-100">
           {loading ? (
             skeletonRows.map((_, index) => (
-              <tr key={`skeleton-${index}`} className="hover:bg-slate-50/10 transition-colors duration-150">
+              <tr key={`skeleton-${index}`} className="hover:bg-slate-50/10 transition-colors duration-150 border-b border-gray-100 last:border-0">
                 {table.getAllColumns().map((column, colIndex) => (
-                  <td key={`skeleton-cell-${colIndex}`} className="px-4 py-4 align-middle">
-                    <div className="h-3.5 bg-slate-200 rounded animate-pulse w-3/4"></div>
+                  <td key={`skeleton-cell-${colIndex}`} className="px-4 py-3.5 align-middle">
+                    <div className="flex items-center gap-3">
+                      {colIndex === 0 && <div className="h-8 w-8 rounded-full bg-slate-200/50 animate-pulse shrink-0"></div>}
+                      <div className="flex flex-col gap-2 w-full">
+                        <div className={`h-3 bg-slate-200/60 rounded-md animate-pulse ${colIndex === 0 ? 'w-24' : 'w-3/4'}`}></div>
+                        {colIndex === 0 && <div className="h-2.5 bg-slate-100/80 rounded-md animate-pulse w-32 mt-0.5"></div>}
+                      </div>
+                    </div>
                   </td>
                 ))}
               </tr>

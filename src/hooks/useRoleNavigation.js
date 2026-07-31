@@ -23,10 +23,11 @@ export function useRoleNavigation() {
         { id: "users", title: "Users", path: "/users", icon: Users },
         {
           id: "masters",
-          title: "Masters",
+          title: "Settings",
           icon: Settings,
           children: [
             { id: "clients", title: "Clients", path: "/masters/clients" },
+            { id: "departments", title: "Departments", path: "/masters/departments" },
             { id: "recruiters", title: "Recruiters", path: "/masters/recruiters" },
             { id: "roles", title: "Roles", path: "/masters/roles" },
             { id: "permissions", title: "Permissions", path: "/masters/permissions" },

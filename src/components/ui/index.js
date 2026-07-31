@@ -5,3 +5,4 @@ export { default as Badge } from "./Badge";
 export { default as DataTable } from "./DataTable";
 export { default as Dropdown } from "./Dropdown";
 export { default as Textarea } from "./Textarea";
+export { default as Modal } from "./Modal";

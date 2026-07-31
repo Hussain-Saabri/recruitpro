@@ -36,7 +36,9 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
 
   
   if (children && children.length > 0) {
-    const isActive = children.some(child => location.pathname.startsWith(child.path));
+    const activeChild = children.find(child => location.pathname.startsWith(child.path));
+    const isActive = !!activeChild;
+    const displayTitle = activeChild ? activeChild.title : title;
     
     return (
       <div className="relative" ref={dropdownRef}>
@@ -45,7 +47,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
           className={mobile ? mobileStyles(isActive) : desktopStyles(isActive)}
         >
           {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} />}
-          <span>{title}</span>
+          <span>{displayTitle}</span>
           <ChevronDown size={13} className={`ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </div>
 

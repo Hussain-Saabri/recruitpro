@@ -30,6 +30,7 @@ import TeamLeaderManage from "../pages/team-leader/TeamLeaderManage";
 
 
 import ClientMaster from "../pages/masters/client/ClientMaster";
+import DepartmentMaster from "../pages/masters/department/DepartmentMaster";
 import RecruiterMaster from "../pages/masters/recruiter/RecruiterMaster";
 import RoleMaster from "../pages/masters/role/RoleMaster";
 import PermissionMaster from "../pages/masters/permission/PermissionMaster";
@@ -114,6 +115,7 @@ export default function AppRoutes() {
 
 
           <Route path="/masters/clients" element={<ClientMaster />} />
+          <Route path="/masters/departments" element={<DepartmentMaster />} />
           <Route path="/masters/recruiters" element={<RecruiterMaster />} />
           <Route path="/masters/roles" element={<RoleMaster />} />
           <Route path="/masters/permissions" element={<PermissionMaster />} />
