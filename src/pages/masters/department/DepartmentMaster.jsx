@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import PageHeader from "@/components/shared/PageHeader";
-import { Search, Table, Trash2 } from "lucide-react";
+import { Search, Table,Plus, Trash2 } from "lucide-react";
 import { departmentService } from "../../../services/departmentService";
 import { Button, Input, Modal } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
 import DepartmentModal from "../../../components/masters/department/DepartmentModal";
 import { useDepartmentColumns } from "../../../components/masters/department/DepartmentColumns";
+import SearchBar from "../../../components/shared/SearchBar";
 
 export default function DepartmentMaster() {
   const [departments, setDepartments] = useState([]);
@@ -75,35 +76,33 @@ export default function DepartmentMaster() {
   const columns = useDepartmentColumns({ openModal, handleDelete });
 
   return (
-    <div className="flex flex-col space-y-6 w-full font-sans text-left">
+    <div className="flex flex-col space-y-2 w-full font-sans text-left">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <PageHeader title="Manage Departments" subtitle=""  />        
       </div>
-      <div className="flex items-center justify-end">
-        <div className="flex items-center ">
-          <Input 
-            type="text" 
-            placeholder="Search by Department Name..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-[36px] px-3 w-[300px] text-[13px] bg-white border-r-0 rounded-r-none focus:border-brand-500 focus:ring-0 focus-visible:ring-0 focus:outline-none transition-all" 
-          />
-          <Button 
-            type="button"
-            className="flex items-center justify-center h-[36px] px-4 bg-brand-500 text-white border-brand-500 rounded-l-none hover:bg-brand-600 transition-colors cursor-pointer"
-          >
-            <Search size={16} strokeWidth={2.5} />
-          </Button>
-        </div>
+      <div className="flex items-center  justify-end sm:hidden w-full">
+        <SearchBar 
+          placeholder="Search by Department Name..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full"
+        />
       </div>
-      <div className="w-full bg-white rounded-xl border border-gray-300 overflow-hidden mt-0.5 relative min-h-[200px] flex flex-col">
+      <div className="w-full bg-white mt-2 rounded-[10px] border border-gray-300 overflow-hidden  relative min-h-[200px] flex flex-col">
         <DataTable 
           loading={loading}
           title="Departments"
           icon={<Table size={16} />}
           rightActions={
             <>
-              <Button variant="primary" className="bg-brand-500 border-none  text-white cursor-pointer" size="sm" onClick={() => openModal()} >Add Department</Button>
+              <div className="hidden sm:block">
+                <SearchBar 
+                  placeholder="Search by Department Name..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <Button variant="primary" className="bg-brand-500 hover:bg-brand-600 border-none text-white cursor-pointer h-[26px] sm:h-[35px] px-2.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 rounded-[4px] sm:rounded-[5px] transition-colors w-full sm:w-auto shadow-sm" size="sm" onClick={() => openModal()} ><Plus size={16} /> <span className="font-semibold text-[11px] sm:text-[12.5px]">Add Department</span></Button>
             </>
           }
           data={filteredDepartments} 

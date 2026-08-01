@@ -79,12 +79,7 @@ export default function CandidateTable() {
         icon={<Table size={16} />}
         rightActions={
             <>
-             <Button variant="outline" size="sm" className="h-8 gap-1.5  hover:border-brand-500 border-2 text-xs text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">
-                <Download size={13} className='text-brand-500 font-bold'/> Export
-            </Button>
-            <Button variant="outline" size="sm" className="h-8 gap-1.5 hover:border-brand-500 border-2 text-xs text-slate-600 hover:bg-slate-50 transition-all cursor-pointer">
-                <RefreshCcw size={13} className='text-brand-500'/> Refresh
-            </Button>
+             
             </>                 
         }
         data={data} 

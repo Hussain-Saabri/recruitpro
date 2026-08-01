@@ -67,7 +67,7 @@ export default function Filter() {
                     />
                 </div>
                 <Dropdown 
-                    wrapperClassName="flex-1 md:flex-none"
+                    wrapperClassName="w-full md:w-auto"
                     label="Status" 
                     icon={<User size={14} className="text-brand-500 " />}
                     options={statusOptions}
@@ -77,7 +77,7 @@ export default function Filter() {
                     className="w-full md:w-[275px] h-[42px]"
                 />                            
                 <Dropdown 
-                    wrapperClassName="flex-1 md:flex-none"
+                    wrapperClassName="w-full md:w-auto"
                     label="Date" 
                     icon={<User size={14} className="text-brand-500 " />}
                     options={dateOptions}
