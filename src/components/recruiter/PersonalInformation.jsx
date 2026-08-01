@@ -1,7 +1,7 @@
 import { Input } from "../ui";
 import Dropdown from "../ui/Dropdown";
 import FormCard from "../ui/FormCard";
-import {User,Cake,VenusAndMars,House,Building2,MapPin,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail} from "lucide-react";
+import {User,Cake,VenusAndMars,House,Building2,MapPin,Flag,ChartLine,Star,IdCard,Phone,Briefcase,Mail,Mars,Venus} from "lucide-react";
 import { useEffect, useState } from "react";
 
 const indianStates = [
@@ -221,9 +221,9 @@ export default function PersonalInformation({ jdData, submitTrigger, onValidatio
                     placeholder="Select Gender"
                     labelIcon={<VenusAndMars />}
                     options={[
-                        {value:"Male", label:"Male"},
-                        {value:"Female", label:"Female"},
-                        {value:"Other", label:"Other"}
+                        {value:"Male", label:"Male", icon: <Mars size={14} className="text-gray-800" />},
+                        {value:"Female", label:"Female", icon: <Venus size={14} className="text-gray-800" />},
+                        {value:"Other", label:"Other", icon: <VenusAndMars size={14} className="text-gray-800" />}
                     ]}
                     value={gender}
                     onChange={(val) => {
@@ -378,7 +378,7 @@ export default function PersonalInformation({ jdData, submitTrigger, onValidatio
                     label="State"
                     placeholder="Select State"
                     labelIcon={<MapPin />}
-                    options={indianStates}
+                    options={indianStates.map(state => ({ ...state, icon: <MapPin size={14} className="text-gray-500" /> }))}
                     value={state}
                     onChange={(val) => {
                         setState(val);

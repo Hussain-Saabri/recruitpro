@@ -15,7 +15,7 @@ export default function SearchBar({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="h-[36px] px-3 w-full sm:w-[300px] text-[13px] bg-white border-r-0 rounded-r-none focus:border-brand-500 focus:ring-0 focus-visible:ring-0 focus:outline-none transition-all" 
+        className="h-[36px] px-3 w-[300px] text-[13px] bg-white border-r-0 rounded-r-none focus:border-brand-500 focus:ring-0 focus-visible:ring-0 focus:outline-none transition-all" 
       />
       <Button 
         type="button"

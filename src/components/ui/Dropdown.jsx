@@ -100,14 +100,17 @@ export default function Dropdown({
         >
           <span
             className={cn(
-              "truncate pr-2 text-[14px]",
+              "truncate pr-2 text-[14px] flex items-center gap-1.5",
               !selectedOption &&
                 "text-gray-500 text-[12px]"
             )}
           >
-            {selectedOption
-              ? selectedOption.label
-              : placeholder}
+            {selectedOption?.icon && <span className="shrink-0">{selectedOption.icon}</span>}
+            <span className="truncate">
+              {selectedOption
+                ? selectedOption.label
+                : placeholder}
+            </span>
           </span>
 
           <ChevronDown
@@ -160,7 +163,10 @@ export default function Dropdown({
                         "font-medium text-brand-500 hover:text-brand-600"
                     )}
                   >
-                    <span className="block w-full">{option.label}</span>
+                    <span className="flex items-center gap-1.5 truncate">
+                      {option.icon && <span className="shrink-0 text-gray-500">{option.icon}</span>}
+                      <span className="truncate">{option.label}</span>
+                    </span>
 
                     {selectedOption?.value === option.value && (
                       <span className="absolute right-2.5 flex h-3.5 w-3.5 items-center justify-center text-brand-500">

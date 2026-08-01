@@ -82,12 +82,13 @@ export default function RecruiterMaster() {
 
   return (
     <div className="flex flex-col space-y-4 w-full font-sans text-left">
-      <PageHeader title="Manage Recruiters" subtitle="Manage external recruitment agencies and vendors."  />         
-      <div className="flex items-center justify-end">
+      <PageHeader title="Manage Recruiters" subtitle=""  />         
+      <div className="flex items-center justify-end sm:hidden w-full">
         <SearchBar 
-          placeholder="Search by Recruiter Name or Contact..." 
+          placeholder="Search by Recruiter Name" 
           value={searchQuery} 
           onChange={(e) => setSearchQuery(e.target.value)} 
+          className="w-full"
         />
       </div>
       <div className="w-full bg-white rounded-xl border border-gray-300 overflow-hidden mt-0.5 relative flex flex-col">
@@ -98,17 +99,26 @@ export default function RecruiterMaster() {
           data={filteredRecruiters} 
           columns={columns}
           rightActions={
-            <Button 
-              variant="primary" 
-              className="bg-brand-500 hover:bg-brand-600 border-none text-white cursor-pointer h-[26px] sm:h-[30px] px-2.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 rounded-[4px] sm:rounded-[5px] transition-colors w-full sm:w-auto shadow-sm" 
-              onClick={() => {
-                setShowAddRecruiter(true);
-                setEditRecruiterId(null);
-              }} 
-            >
-              <Plus size={13} strokeWidth={2.5} />
-              <span className="font-semibold text-[11px] sm:text-[12.5px]">Add Recruiter</span>
-            </Button>
+            <>
+              <div className="hidden sm:block">
+                <SearchBar 
+                  placeholder="Search by Recruiter Name" 
+                  value={searchQuery} 
+                  onChange={(e) => setSearchQuery(e.target.value)} 
+                />
+              </div>
+              <Button 
+                variant="primary" 
+                className="bg-brand-500 hover:bg-brand-600 border-none text-white cursor-pointer h-[26px] sm:h-[35px] px-2.5 sm:px-3 flex items-center gap-1 sm:gap-1.5 rounded-[4px] sm:rounded-[5px] transition-colors w-full sm:w-auto shadow-sm" 
+                onClick={() => {
+                  setShowAddRecruiter(true);
+                  setEditRecruiterId(null);
+                }} 
+              >
+                <Plus size={13} strokeWidth={2.5} />
+                <span className="font-semibold text-[11px] sm:text-[12.5px]">Add Recruiter</span>
+              </Button>
+            </>
           }
         />
       </div>
