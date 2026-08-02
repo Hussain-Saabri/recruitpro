@@ -63,6 +63,7 @@ export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
     const errors = {};
     if (!formValues.name.trim()) errors.name = "Name is required.";
     if (!formValues.code.trim()) errors.code = "Code is required.";
+    if (!formValues.description.trim()) errors.description = "Description is required.";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -114,10 +115,10 @@ export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
           </button>
         </div>
         
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <form onSubmit={handleSubmit} className="flex flex-col" noValidate>
           <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
             
-            <div>
+            
               <Input 
                 label="Role Name" 
                 name="name" 
@@ -125,13 +126,12 @@ export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
                 placeholder="e.g. Hiring Manager" 
                 value={formValues.name} 
                 onChange={handleInputChange} 
+                error={formErrors.name}
               />
-              {formErrors.name && (
-                <p className="text-red-500 text-[12px] mt-1 font-medium">{formErrors.name}</p>
-              )}
-            </div>
+             
             
-            <div>
+            
+           
               <Input 
                 label="Code" 
                 name="code" 
@@ -139,20 +139,23 @@ export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
                 placeholder="e.g. hiring_manager" 
                 value={formValues.code} 
                 onChange={handleInputChange} 
+                error={formErrors.code}
               />
-              {formErrors.code && (
-                <p className="text-red-500 text-[12px] mt-1 font-medium">{formErrors.code}</p>
-              )}
-            </div>
+             
             
-            <Textarea 
-              label="Description"
-              name="description" 
-              value={formValues.description} 
-              onChange={handleInputChange} 
-              rows="3" 
-              placeholder="Briefly describe this role's purpose..." 
-            />
+            
+            
+              <Textarea 
+                label="Description"
+                name="description" 
+                value={formValues.description} 
+                onChange={handleInputChange} 
+                rows="3" 
+                required
+                error={formErrors.description}
+                placeholder="Briefly describe this role's purpose..." 
+              />
+            
             
             <div className={roleToEdit && formValues.isSystem ? "pointer-events-none opacity-60" : ""}>
               <Dropdown
@@ -189,7 +192,7 @@ export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
                   Saving...
                 </span>
               ) : (
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 cursor-pointer">
                   <Save size={15} strokeWidth={2.5} />
                   {roleToEdit ? "Update Role" : "Create Role"}
                 </span>
