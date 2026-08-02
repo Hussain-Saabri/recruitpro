@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { User, Layers, Flag, CalendarDays, Settings, Eye, MoreVertical } from 'lucide-react';
 import Button from '../ui/Button';
+import { Tooltip } from '../ui';
 
 
 const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
@@ -50,12 +51,11 @@ const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
   return (
     <div className="flex items-center gap-2">
       {/* View Button */}
-      <Button variant="outline" size="icon" className="group relative w-8 h-8 rounded-[5px] border-gray-200 hover:bg-slate-50 transition-all cursor-pointer" onClick={() => onViewClick(row.original)}>
-        <Eye size={14} className="text-slate-600" />
-        <span className="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-slate-800 text-white text-[10px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 shadow-sm">
-          View
-        </span>
-      </Button>
+      <Tooltip text="View">
+        <Button variant="outline" size="icon" className="w-8 h-8 rounded-[5px] border-gray-200 hover:bg-slate-50 transition-all cursor-pointer" onClick={() => onViewClick(row.original)}>
+          <Eye size={14} className="text-slate-600" />
+        </Button>
+      </Tooltip>
 
       {/* More Options Button */}
       <div ref={buttonRef}>

@@ -16,7 +16,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
   const skeletonRows = Array(5).fill(0);
 
   return (
-    <div className="w-full flex-1 flex flex-col relative">
+    <div className="w-full flex flex-col relative">
       {(title || rightActions) && (
         <div className="flex flex-row items-center justify-between p-4 gap-4 border-b border-gray-100">
            <div className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-x-auto w-full flex-1 cursor-pointer">
+      <div className="overflow-x-auto overflow-y-hidden w-full cursor-pointer">
         <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -67,7 +67,8 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
             ))
           ) : table.getRowModel().rows.length === 0 ? (
             <tr>
-              <td colSpan={table.getAllColumns().length} className="h-24">
+              <td colSpan={table.getAllColumns().length} className="h-14 text-center align-middle">
+                <span className="text-slate-500 text-[13px] font-medium">No data available</span>
               </td>
             </tr>
           ) : (
@@ -85,11 +86,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
       </table>
     </div>
     
-    {!loading && table.getRowModel().rows.length === 0 && (
-        <div className="absolute inset-0 top-[100px] flex items-center justify-center pointer-events-none">
-          <span className="text-slate-500 text-sm">No data available</span>
-        </div>
-    )}
+
     </div>
   );
 }
