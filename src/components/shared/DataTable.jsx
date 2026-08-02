@@ -30,15 +30,15 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-x-auto overflow-y-hidden w-full cursor-pointer">
+      <div className="overflow-auto w-full cursor-pointer max-h-[60vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
-        <thead>
+        <thead className="sticky top-0 z-20">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="bg-slate-50/30 border-b border-gray-100">
+            <tr key={headerGroup.id} className="bg-slate-50/90 backdrop-blur-md border-gray-200 ">
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-4 py-3 font-bold text-gray-900 text-[13px] capitalize tracking-wider text-left"
+                  className="px-4 py-2 font-bold text-gray-900 text-[13px] capitalize tracking-wider text-left last:pr-6"
                 >
                   {header.isPlaceholder
                     ? null
@@ -75,7 +75,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
             table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="hover:bg-slate-50/10 transition-colors duration-150">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-3 align-middle">
+                  <td key={cell.id} className="px-4 py-1.5 align-middle last:pr-6">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
