@@ -34,6 +34,7 @@ import DepartmentMaster from "../pages/masters/department/DepartmentMaster";
 import RecruiterMaster from "../pages/masters/recruiter/RecruiterMaster";
 import RoleMaster from "../pages/masters/role/RoleMaster";
 import PermissionMaster from "../pages/masters/permission/PermissionMaster";
+import SkillMaster from "../pages/masters/skill/SkillMaster";
 
 
 // Components
@@ -119,6 +120,7 @@ export default function AppRoutes() {
           <Route path="/masters/recruiters" element={<RecruiterMaster />} />
           <Route path="/masters/roles" element={<RoleMaster />} />
           <Route path="/masters/permissions" element={<PermissionMaster />} />
+          <Route path="/masters/skills" element={<SkillMaster />} />
 
         </Route>
 

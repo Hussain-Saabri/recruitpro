@@ -31,6 +31,7 @@ export function useRoleNavigation() {
             { id: "recruiters", title: "Recruiters", path: "/masters/recruiters" },
             { id: "roles", title: "Roles", path: "/masters/roles" },
             { id: "permissions", title: "Permissions", path: "/masters/permissions" },
+            { id: "skills", title: "Skills", path: "/masters/skills" },
           ]
         },
       ];
