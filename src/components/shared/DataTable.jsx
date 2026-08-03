@@ -20,7 +20,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
       {(title || rightActions) && (
         <div className="flex flex-row items-center justify-between p-4 gap-4 border-b border-gray-100">
            <div className="flex items-center gap-2">
-            {icon && <div className="text-brand-600   ">{icon}</div>}
+            {icon && <div className="text-brand-600">{icon}</div>}
             <p className="text-[15px] font-bold text-gray-900">{title}</p>
           </div>
           {rightActions && (
@@ -30,8 +30,8 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-auto w-full cursor-pointer max-h-[60vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        <table className="w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
+      <div className="overflow-auto w-full cursor-pointer max-h-[60vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] md:[scrollbar-width:auto]">
+        <table className="w-full min-w-max border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
         <thead className="sticky top-0 z-20">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="bg-slate-50/90 backdrop-blur-md border-gray-200 ">
