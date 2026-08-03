@@ -38,7 +38,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-4 py-2 font-bold text-gray-900 text-[13px] capitalize tracking-wider text-left last:pr-6"
+                  className="px-4 py-2 font-bold text-gray-900 text-[13.1px] capitalize tracking-wider text-left last:pr-6"
                 >
                   {header.isPlaceholder
                     ? null
