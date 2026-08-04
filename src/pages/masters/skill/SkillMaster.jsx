@@ -22,7 +22,37 @@ export default function SkillMaster() {
   const fetchSkills = async () => {
     try {
       setLoading(true);
-      const data = await skillService.getSkills();
+      let data = [];
+      try {
+        data = await skillService.getSkills();
+      } catch (err) {
+        console.error("API failed, falling back to dummy data", err);
+      }
+
+      const dummySkills = [
+        { id: 1, name: "React", category: "Frontend", isActive: true },
+        { id: 2, name: "Node.js", category: "Backend", isActive: true },
+        { id: 3, name: "Python", category: "Backend", isActive: true },
+        { id: 4, name: "AWS", category: "Cloud", isActive: true },
+        { id: 5, name: "Docker", category: "DevOps", isActive: true },
+        { id: 6, name: "Kubernetes", category: "DevOps", isActive: false },
+        { id: 7, name: "TypeScript", category: "Frontend", isActive: true },
+        { id: 8, name: "SQL", category: "Database", isActive: true },
+        { id: 9, name: "MongoDB", category: "Database", isActive: true },
+        { id: 10, name: "Figma", category: "Design", isActive: true },
+        { id: 11, name: "Communication", category: "Soft Skills", isActive: true },
+        { id: 12, name: "Leadership", category: "Soft Skills", isActive: false },
+        { id: 13, name: "Agile / Scrum", category: "Management", isActive: true },
+        { id: 14, name: "C#", category: "Programming", isActive: true },
+        { id: 15, name: "Data Analysis", category: "Data Science", isActive: false },
+        { id: 16, name: "Rust", category: "Backend", isActive: true },
+        { id: 17, name: "Angular", category: "Frontend", isActive: false },
+        { id: 18, name: "Vue.js", category: "Frontend", isActive: true },
+        { id: 19, name: "GCP", category: "Cloud", isActive: true },
+        { id: 20, name: "Azure", category: "Cloud", isActive: false },
+      ];
+
+      data = [...(data || []), ...dummySkills];
       setSkills(data);
     } catch (error) {
       toast.error("Failed to load skills.");
@@ -112,7 +142,7 @@ export default function SkillMaster() {
                 <span className="font-semibold text-[11px] sm:text-[12.5px]">Add Skill</span>
               </Button>
             </>
-          }
+      }
         />
       </div>
 

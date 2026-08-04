@@ -16,7 +16,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
   const skeletonRows = Array(5).fill(0);
 
   return (
-    <div className="w-full flex flex-col relative">
+    <div className="flex-1 w-full flex flex-col relative">
       {(title || rightActions) && (
         <div className="flex flex-row items-center justify-between p-4 gap-4 border-b border-gray-100">
            <div className="flex items-center gap-2">
@@ -30,12 +30,13 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="overflow-auto w-full cursor-pointer max-h-[60vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] md:[scrollbar-width:auto]">
-        <table className="w-full min-w-max border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
-        <thead className="sticky top-0 z-20">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="bg-slate-50/90 backdrop-blur-md border-gray-200 ">
-              {headerGroup.headers.map((header) => (
+      <div className="flex-1 overflow-x-auto overflow-y-auto w-full max-h-[60vh] pb-0 focus:outline-none [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="inline-block min-w-full w-full align-middle">
+          <table className="w-full min-w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
+            <thead className="sticky top-0 z-20">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id} className=" bg-slate-50 border-gray-300 ">
+                  {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
                   className="px-4 py-2 font-bold text-gray-900 text-[13.1px] capitalize tracking-wider text-left last:pr-6"
@@ -51,9 +52,9 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
         <tbody className="divide-y divide-gray-100">
           {loading ? (
             skeletonRows.map((_, index) => (
-              <tr key={`skeleton-${index}`} className="hover:bg-slate-50/10 transition-colors duration-150 border-b border-gray-100 last:border-0">
+              <tr key={`skeleton-${index}`} className="hover:bg-slate-50/10 transition-colors duration-150 border-b border-gray-100 ">
                 {table.getAllColumns().map((column, colIndex) => (
-                  <td key={`skeleton-cell-${colIndex}`} className="px-4 py-3.5 align-middle">
+                   <td key={`skeleton-cell-${colIndex}`} className="px-4 py-3.5 align-middle ">
                     <div className="flex items-center gap-3">
                       {colIndex === 0 && <div className="h-8 w-8 rounded-full bg-slate-200/50 animate-pulse shrink-0"></div>}
                       <div className="flex flex-col gap-2 w-full">
@@ -67,13 +68,15 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
             ))
           ) : table.getRowModel().rows.length === 0 ? (
             <tr>
-              <td colSpan={table.getAllColumns().length} className="h-14 text-center align-middle">
-                <span className="text-slate-500 text-[13px] font-medium">No data available</span>
+              <td colSpan={table.getAllColumns().length} className="h-24 align-middle relative">
+                <div className="sticky left-1/2 -translate-x-1/2 inline-block">
+                  <span className="text-slate-500 text-[13px] font-medium">No data available</span>
+                </div>
               </td>
             </tr>
           ) : (
             table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-slate-50/10 transition-colors duration-150">
+              <tr key={row.id} className="  hover:bg-slate-100/60  transition-colors duration-150">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-4 py-1.5 align-middle last:pr-6">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -84,8 +87,8 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </tbody>
       </table>
+        </div>
     </div>
-    
 
     </div>
   );

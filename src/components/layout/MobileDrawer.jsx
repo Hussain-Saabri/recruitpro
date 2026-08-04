@@ -29,7 +29,7 @@ export default function MobileDrawer({ open, onClose, user, onLogout, navItems }
             role="dialog"
             aria-modal="true"
             aria-label="Navigation drawer"
-            className="fixed left-0 top-0 bottom-0 z-50 w-[280px] bg-white shadow-2xl flex flex-col p-6 border-r border-slate-100 box-border font-sans"
+            className="fixed left-0 top-0 bottom-0 z-50 w-[280px] bg-white shadow-2xl flex flex-col p-6 box-border font-sans"
           >
             {/* Logo & Branding */}
             <div className="flex items-center absolute left-6 top-5 cursor-default">
