@@ -1,6 +1,7 @@
+
 import React, { useMemo } from "react";
 import { Tooltip } from "../../../components/ui";
-import { Edit2, Trash2, Box, Zap, AlignLeft, Activity, Settings } from "lucide-react";
+import { Edit2, Trash2, Box, AlignLeft, Code, Activity, Settings } from "lucide-react";
 
 export const usePermissionColumns = ({ handleEdit, handleDelete }) => {
   return useMemo(
@@ -14,10 +15,10 @@ export const usePermissionColumns = ({ handleEdit, handleDelete }) => {
           </div>
         ),
         cell: ({ row }) => {
-          const perm = row.original;
+          const perm= row.original;
           return (
-            <div className="flex flex-col">
-              <span className="text-[13px] font-medium text-gray-900">{perm.resource}</span>
+            <div className="flex flex-col min-w-0 py-1">
+              <span className="font-semibold text-[14px] text-gray-700 truncate">{perm.resource}</span>
             </div>
           );
         },
@@ -26,16 +27,14 @@ export const usePermissionColumns = ({ handleEdit, handleDelete }) => {
         accessorKey: "action",
         header: () => (
           <div className="flex items-center gap-1.5">
-            <Zap size={13} strokeWidth={2.5} className="text-brand-500" />
+            <Code size={13} strokeWidth={2.5} className="text-brand-500" />
             <span className="text-gray-900 font-semibold">Action</span>
           </div>
         ),
         cell: ({ row }) => (
-          <div className="flex flex-col">
-            <span className="text-[13px] font-medium text-gray-900">
+          <span className="text-[13px] font-medium text-gray-900">
               {row.original.action || <span className="text-slate-400 italic font-normal">N/A</span>}
             </span>
-          </div>
         ),
       },
       {
@@ -46,16 +45,18 @@ export const usePermissionColumns = ({ handleEdit, handleDelete }) => {
             <span className="text-gray-900 font-semibold">Description</span>
           </div>
         ),
-        cell: ({ row }) => (
-          <div className="flex flex-col">
-            <span className="text-[13px] font-medium text-gray-900">
-              {row.original.description || <span className="text-slate-400 italic font-normal">N/A</span>}
+        cell: ({ row }) => {
+          const role = row.original;
+          return (
+            <span className="text-[13px] font-medium text-slate-700">
+              {role.description || <span className="text-slate-400 italic font-normal">N/A</span>}
             </span>
-          </div>
-        ),
+          );
+        },
       },
+      
       {
-        accessorKey: "isActive",
+        accessorKey: "is_active",
         header: () => (
           <div className="flex items-center gap-1.5">
             <Activity size={13} strokeWidth={2.5} className="text-brand-500" />
@@ -86,21 +87,22 @@ export const usePermissionColumns = ({ handleEdit, handleDelete }) => {
           </div>
         ),
         cell: ({ row }) => {
-          const perm = row.original;
+          const role = row.original;
           return (
             <div className="flex gap-2 items-center">
-              <Tooltip text="Edit Permission" position="left">
+              <Tooltip text="Edit Role" position="left">
                 <button
-                  onClick={() => handleEdit && handleEdit(perm)}
+                  onClick={() => handleEdit(role)}
                   className="cursor-pointer p-2 border border-slate-200 rounded-full text-slate-500 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all duration-200"
                 >
                   <Edit2 size={14} strokeWidth={2.5} />
                 </button>
               </Tooltip>
-              <Tooltip text="Delete Permission" position="right">
+              <Tooltip text="Delete Role" position="top">
                 <button
-                  onClick={() => handleDelete && handleDelete(perm)}
-                  className="cursor-pointer p-2 border border-slate-200 rounded-full text-slate-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all duration-200"
+                  onClick={() => handleDelete(role)}
+                  disabled={role.is_system}
+                  className="cursor-pointer p-2 border border-slate-200 rounded-full text-slate-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   <Trash2 size={14} strokeWidth={2.5} />
                 </button>

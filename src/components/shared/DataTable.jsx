@@ -30,12 +30,12 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
           )}
         </div>
       )}
-      <div className="flex-1 overflow-x-auto overflow-y-auto w-full max-h-[60vh] pb-0 focus:outline-none [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="flex-1 overflow-x-auto overflow-y-auto w-full max-h-[60vh] pb-0 focus:outline-none max-sm:[&::-webkit-scrollbar]:hidden sm:[&::-webkit-scrollbar]:w-1.5 sm:[&::-webkit-scrollbar]:h-1.5 sm:[&::-webkit-scrollbar-track]:bg-transparent sm:[&::-webkit-scrollbar-thumb]:bg-gray-200 sm:[&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-300 transition-colors">
         <div className="inline-block min-w-full w-full align-middle">
           <table className="w-full min-w-full border-collapse text-sm text-slate-600 whitespace-nowrap cursor-default">
             <thead className="sticky top-0 z-20">
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className=" bg-slate-50 border-gray-300 ">
+                <tr key={headerGroup.id} className="bg-slate-100 border-b border-gray-200">
                   {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
@@ -76,7 +76,7 @@ export default function DataTable({ data, columns, title, rightActions, icon, lo
             </tr>
           ) : (
             table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="  hover:bg-slate-100/60  transition-colors duration-150">
+              <tr key={row.id} className="hover:bg-slate-100/60 transition-colors duration-150">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-4 py-1.5 align-middle last:pr-6">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
