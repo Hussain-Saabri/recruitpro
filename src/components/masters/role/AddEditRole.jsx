@@ -4,7 +4,7 @@ import { X, Save } from "lucide-react";
 import { Button, Input, Label, Dropdown, Textarea } from "../../ui";
 import { roleService } from "../../../services/roleService";
 
-export default function RoleModal({ isOpen, onClose, onSuccess, roleToEdit }) {
+export default function AddEditRole({ isOpen, onClose, onSuccess, roleToEdit }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formValues, setFormValues] = useState({
     organizationId: 0,

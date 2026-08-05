@@ -5,7 +5,7 @@ import { clientService } from "../../../services/clientService";
 import { Button, Input, Dropdown, Textarea } from "../../ui";
 import { COUNTRIES } from "../../../lib/countries";
 
-export default function ClientModal({ isOpen, onClose, editingClient, onSuccess }) {
+export default function AddEditClient({ isOpen, onClose, editingClient, onSuccess }) {
   const [formValues, setFormValues] = useState({
     name: "",
     code: "",

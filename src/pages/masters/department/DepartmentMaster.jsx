@@ -5,7 +5,7 @@ import { Search, Table,Plus, Trash2 } from "lucide-react";
 import { departmentService } from "../../../services/departmentService";
 import { Button, Input, Modal } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
-import DepartmentModal from "../../../components/masters/department/DepartmentModal";
+import AddEditDepartment from "../../../components/masters/department/AddEditDepartment";
 import { useDepartmentColumns } from "../../../components/masters/department/DepartmentColumns";
 import SearchBar from "../../../components/shared/SearchBar";
 
@@ -110,7 +110,7 @@ export default function DepartmentMaster() {
         />
       </div>
 
-      <DepartmentModal 
+      <AddEditDepartment 
         isOpen={isModalOpen} 
         onClose={closeModal} 
         editingDepartment={editingDepartment} 

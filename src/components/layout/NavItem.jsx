@@ -28,7 +28,7 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
     }`;
 
   const mobileStyles = (isActive) =>
-    `${baseStyles} w-[75%] h-10 px-4 rounded-[10px] text-[13px] ${
+    `${baseStyles} w-full min-h-[40px] px-4 rounded-[10px] text-[13px] ${
       isActive
         ? "bg-brand-500 text-white shadow-lg shadow-brand-500/10 hover:bg-brand-600"
         : "text-slate-600 hover:bg-brand-50 hover:text-brand-500"
@@ -38,7 +38,6 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
   if (children && children.length > 0) {
     const activeChild = children.find(child => location.pathname.startsWith(child.path));
     const isActive = !!activeChild;
-    const displayTitle = activeChild ? activeChild.title : title;
     
     return (
       <div className="relative" ref={dropdownRef}>
@@ -46,9 +45,9 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
           onClick={() => setIsOpen(!isOpen)}
           className={mobile ? mobileStyles(isActive) : desktopStyles(isActive)}
         >
-          {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} />}
-          <span>{displayTitle}</span>
-          <ChevronDown size={13} className={`ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+          {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} className="shrink-0" />}
+          <span className="whitespace-nowrap flex-1 text-left truncate">{title}</span>
+          <ChevronDown size={13} className={`ml-1 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </div>
 
         {isOpen && (
@@ -88,8 +87,8 @@ export default function NavItem({ to, icon: Icon, title, onClick, mobile = false
       onClick={onClick}
       className={({ isActive }) => mobile ? mobileStyles(isActive) : desktopStyles(isActive)}
     >
-      {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} />}
-      <span>{title}</span>
+      {Icon && <Icon size={mobile ? 16 : 14} strokeWidth={2} className="shrink-0" />}
+      <span className="whitespace-nowrap flex-1 text-left truncate">{title}</span>
     </NavLink>
   );
 }

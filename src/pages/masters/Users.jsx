@@ -5,8 +5,8 @@ import { Plus, Users as UsersIcon } from "lucide-react";
 import { userService } from "../../services/userService";
 import { Button } from "../../components/ui";
 import DataTable from "../../components/shared/DataTable";
-import UserModal from "../../components/admin/users/UserModal";
-import { useUserColumns } from "../../components/admin/users/UserColumns";
+import UserModal from "../../components/masters/users/UserModal";
+import { useUserColumns } from "../../components/masters/users/UserColumns";
 import SearchBar from "../../components/shared/SearchBar";
 
 export default function Users() {

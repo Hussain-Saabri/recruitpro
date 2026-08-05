@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { departmentService } from "../../../services/departmentService";
 import { Button, Input, Dropdown, Textarea } from "../../ui";
 
-export default function DepartmentModal({ isOpen, onClose, editingDepartment, onSuccess }) {
+export default function AddEditDepartment({ isOpen, onClose, editingDepartment, onSuccess }) {
   const [formValues, setFormValues] = useState({
     name: "",
     description: ""

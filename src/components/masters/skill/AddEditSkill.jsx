@@ -4,7 +4,7 @@ import { X, Brain } from "lucide-react";
 import { Input, Button} from "../../ui";
 import { skillService } from "../../../services/skillService";
 
-export default function SkillModal({ isOpen, onClose, onSuccess, skillToEdit }) {
+export default function AddEditSkill({ isOpen, onClose, onSuccess, skillToEdit }) {
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",

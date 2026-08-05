@@ -4,7 +4,7 @@ import { X, Shield, List, PlusCircle, Edit2, Trash2 } from "lucide-react";
 import { Input, Button, Textarea, Dropdown } from "../../ui";
 import { permissionService } from "../../../services/permissionService";
 
-export default function PermissionModal({ isOpen, onClose, onSuccess, permissionToEdit }) {
+export default function AddEditPermission({ isOpen, onClose, onSuccess, permissionToEdit }) {
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     resource: "",

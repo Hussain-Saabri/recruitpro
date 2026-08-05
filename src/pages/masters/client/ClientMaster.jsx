@@ -5,7 +5,7 @@ import {Plus,Table } from "lucide-react";
 import { clientService } from "../../../services/clientService";
 import { Button, Input } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
-import ClientModal from "../../../components/masters/client/ClientModal";
+import AddEditClient from "../../../components/masters/client/AddEditClient";
 import { useClientColumns } from "../../../components/masters/client/ClientColumns";
 import SearchBar from "../../../components/shared/SearchBar";
 
@@ -102,7 +102,7 @@ export default function ClientMaster() {
         />
       </div>
 
-      <ClientModal 
+      <AddEditClient 
         isOpen={isModalOpen} 
         onClose={closeModal} 
         editingClient={editingClient} 

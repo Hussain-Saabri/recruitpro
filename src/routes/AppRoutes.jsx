@@ -9,7 +9,7 @@ import Login from "../pages/auth/Login";
 // Admin Pages
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminManage from "../pages/admin/AdminManage";
-import Users from "../pages/admin/Users";
+import Users from "../pages/masters/Users";
 import SuperAdminDashboard from "../pages/superadmin/SuperAdminDashbaord";
 import AddOrganisation from "../pages/superadmin/AddOrganisation";
 import EditOrganisation from "../pages/superadmin/EditOrganisation";
@@ -106,7 +106,6 @@ export default function AppRoutes() {
           <Route path="/add-organisation" element={<AddOrganisation />} />
           <Route path="/edit-organisation/:id" element={<EditOrganisation />} />
           {/* Admin Specific */}
-          <Route path="/users" element={<Users />} />
           
           {/* Recruiter Specific */}
           <Route path="/jds" element={<Jds />} />
@@ -117,6 +116,7 @@ export default function AppRoutes() {
 
           <Route path="/masters/clients" element={<ClientMaster />} />
           <Route path="/masters/departments" element={<DepartmentMaster />} />
+          <Route path="/masters/users" element={<Users />} />
           <Route path="/masters/recruiters" element={<RecruiterMaster />} />
           <Route path="/masters/roles" element={<RoleMaster />} />
           <Route path="/masters/permissions" element={<PermissionMaster />} />

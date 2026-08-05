@@ -8,7 +8,7 @@ import DeleteModal from "../../../components/shared/DeleteModal";
 import { Button } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
 import { usePermissionColumns } from "../../../components/masters/permission/PermissionColumns";
-import PermissionModal from "../../../components/masters/permission/PermissionModal";
+import AddEditPermission from "../../../components/masters/permission/AddEditPermission";
 
 export default function PermissionMaster() {
   const [permissions, setPermissions] = useState([]);
@@ -121,7 +121,7 @@ export default function PermissionMaster() {
         />
       </div>
 
-      <PermissionModal
+      <AddEditPermission
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={fetchPermissions}

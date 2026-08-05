@@ -8,7 +8,7 @@ import DeleteModal from "../../../components/shared/DeleteModal";
 import { Button } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
 import { useRoleColumns } from "../../../components/masters/role/RoleColumns";
-import RoleModal from "../../../components/masters/role/RoleModal";
+import AddEditRole from "../../../components/masters/role/AddEditRole";
 
 export default function RoleMaster() {
   const [roles, setRoles] = useState([]);
@@ -120,7 +120,7 @@ export default function RoleMaster() {
         />
       </div>
 
-      <RoleModal
+      <AddEditRole
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={fetchRoles}

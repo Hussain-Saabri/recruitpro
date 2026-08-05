@@ -20,7 +20,17 @@ export function useRoleNavigation() {
     case "admin":
       return [
         { id: "dashboard", title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-        { id: "users", title: "Users", path: "/users", icon: Users },
+        {
+          id: "access",
+          title: "Users & Access",
+          icon: Users,
+          children: [
+            { id: "users", title: "Users", path: "/masters/users" },
+            { id: "recruiters", title: "Recruiters", path: "/masters/recruiters" },
+            { id: "roles", title: "Roles", path: "/masters/roles" },
+            { id: "permissions", title: "Permissions", path: "/masters/permissions" },
+          ]
+        },
         {
           id: "masters",
           title: "Settings",
@@ -28,9 +38,6 @@ export function useRoleNavigation() {
           children: [
             { id: "clients", title: "Clients", path: "/masters/clients" },
             { id: "departments", title: "Departments", path: "/masters/departments" },
-            { id: "recruiters", title: "Recruiters", path: "/masters/recruiters" },
-            { id: "roles", title: "Roles", path: "/masters/roles" },
-            { id: "permissions", title: "Permissions", path: "/masters/permissions" },
             { id: "skills", title: "Skills", path: "/masters/skills" },
           ]
         },

@@ -8,7 +8,7 @@ import DeleteModal from "../../../components/shared/DeleteModal";
 import { Button } from "../../../components/ui";
 import DataTable from "../../../components/shared/DataTable";
 import { useSkillColumns } from "../../../components/masters/skill/SkillColumns";
-import SkillModal from "../../../components/masters/skill/SkillModal";
+import AddEditSkill from "../../../components/masters/skill/AddEditSkill";
 
 export default function SkillMaster() {
   const [skills, setSkills] = useState([]);
@@ -146,7 +146,7 @@ export default function SkillMaster() {
         />
       </div>
 
-      <SkillModal
+      <AddEditSkill
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={fetchSkills}
