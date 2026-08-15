@@ -55,7 +55,7 @@ export default function TeamLeaderManage() {
      <PageHeader
       title="JD Management"
       subtitle="Create, manage and assign JDs"
-      icon={<User/>}
+      
        rightAction={
       <Button
       variant="primary"
