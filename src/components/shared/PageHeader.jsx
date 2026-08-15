@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function PageHeader({ title, subtitle, className = "", rightAction, icon: Icon }) {
   return (
     <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center mb-1 relative ${className}`}>
@@ -5,7 +7,7 @@ export default function PageHeader({ title, subtitle, className = "", rightActio
       <div className="flex items-center gap-3 relative z-10">
         {Icon && (
           <div className="hidden sm:flex p-2.5 bg-brand-50/80 border border-brand-100 rounded-xl shadow-sm text-brand-600">
-            <Icon size={22} strokeWidth={2.5} />
+            {React.isValidElement(Icon) ? Icon : <Icon size={22} strokeWidth={2.5} />}
           </div>
         )}
         <div className="flex flex-col">
