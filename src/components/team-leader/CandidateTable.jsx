@@ -1,13 +1,12 @@
 import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataTable from '../shared/DataTable';
 import { Table, Download, RefreshCcw } from 'lucide-react';
 import Button from '../ui/Button';
 import { getCandidateTableColumns } from './CandidateTableColumns';
-import CandidateModal from './CandidateModal';
 
 export default function CandidateTable() {
-  
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const navigate = useNavigate();
   
   const [tableData, setTableData] = useState([
       {
@@ -75,11 +74,10 @@ export default function CandidateTable() {
 
   const columns = useMemo(() => getCandidateTableColumns(
     (candidate) => {
-      setSelectedCandidate(candidate);
-      console.log(candidate);
+      navigate(`/candidate-details/${candidate.id}`, { state: { candidate } });
     },
     handleStatusUpdate
-  ), []);
+  ), [navigate]);
 
   return (
     <div className="bg-white rounded-lg border border-gray-300 shadow-[0_4px_20px_rgba(0,0,0,0.01)] overflow-hidden">
@@ -98,12 +96,6 @@ export default function CandidateTable() {
         }
         data={tableData} 
         columns={columns} 
-      />
-
-      
-      <CandidateModal 
-        candidate={selectedCandidate} 
-        onClose={() => setSelectedCandidate(null)} 
       />
     </div>
   );
