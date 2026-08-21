@@ -25,6 +25,7 @@ import AccountManagerManage from "../pages/account-manager/AccountManagerManage"
 // Team Leader Pages
 import TeamLeaderDashboard from "../pages/team-leader/TeamLeaderDashboard";
 import TeamLeaderManage from "../pages/team-leader/TeamLeaderManage";
+import CandidateDetailPage from "../pages/team-leader/CandidateDetailPage";
 
 // Master Pages
 
@@ -105,7 +106,8 @@ export default function AppRoutes() {
           <Route path="/manage" element={<ManageRouter />} />
           <Route path="/add-organisation" element={<AddOrganisation />} />
           <Route path="/edit-organisation/:id" element={<EditOrganisation />} />
-          {/* Admin Specific */}
+          {/* Candidate Details */}
+          <Route path="/candidate-details/:id?" element={<CandidateDetailPage />} />
           
           {/* Recruiter Specific */}
           <Route path="/jds" element={<Jds />} />
