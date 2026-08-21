@@ -52,7 +52,17 @@ const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
     <div className="flex items-center gap-2">
       {/* View Button */}
       <Tooltip text="View">
-        <Button variant="outline" size="icon" className="w-8 h-8 rounded-[5px] border-gray-200 hover:bg-slate-50 transition-all cursor-pointer" onClick={() => onViewClick(row.original)}>
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="w-8 h-8 rounded-[5px] border-gray-200 hover:bg-slate-50 transition-all cursor-pointer" 
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            onViewClick(row.original);
+          }}
+        >
           <Eye size={14} className="text-slate-600" />
         </Button>
       </Tooltip>

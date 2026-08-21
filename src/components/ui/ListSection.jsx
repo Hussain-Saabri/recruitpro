@@ -4,7 +4,7 @@ import { Calendar, MapPin, Tag, Book, Award, Briefcase } from 'lucide-react';
 
 export default function ListSection({ title, icon, items = [], className }) {
   return (
-    <div className={cn("bg-white border border-slate-200 border-l-[4px] border-l-brand-500 rounded-xl overflow-hidden shadow-sm hover:ring-1 hover:ring-brand-500 transition-all duration-200", className)}>
+    <div className={cn("bg-white border border-slate-200 border-l-[4px] border-l-brand-500 rounded-xl overflow-hidden shadow-sm", className)}>
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100 bg-white">
         <div className="flex items-center gap-2">
