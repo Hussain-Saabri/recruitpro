@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils';
 
 export default function InfoSection({ title, icon, items = [], className }) {
   return (
-    <div className={cn("bg-white border border-slate-200 border-l-[4px] border-l-brand-500 rounded-xl overflow-hidden shadow-sm hover:ring-1 hover:ring-brand-500 transition-all duration-200", className)}>
+    <div className={cn("bg-white border border-slate-200 border-l-[4px] border-l-brand-500 rounded-xl overflow-hidden shadow-sm", className)}>
       {/* Header */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-slate-100 bg-white">
         <div className="w-6 h-6 rounded-md bg-brand-50 flex items-center justify-center text-brand-600">

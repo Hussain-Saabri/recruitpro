@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CandidateDetailsView from '@/components/team-leader/CandidateDetailsView';
 
@@ -31,6 +31,12 @@ export default function CandidateDetailPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [id, location.pathname]);
 
   const [candidate, setCandidate] = useState(() => {
     if (location.state?.candidate) {
