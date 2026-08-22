@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import Navbar from "../components/layout/Navbar";
 
 // Login Page
 import Login from "../pages/auth/Login";
@@ -39,7 +40,6 @@ import SkillMaster from "../pages/masters/skill/SkillMaster";
 
 
 // Components
-import Navbar from "../components/layout/Navbar";
 
 // Smart Routers
 function DashboardRouter() {
@@ -83,7 +83,7 @@ function AppLayout() {
     <div className="w-full min-h-screen bg-white flex flex-col">
       <Navbar />
       <main className="flex-1 p-4 md:p-4 w-full box-border">
-      <Outlet />
+        <Outlet />
       </main>
     </div>
   );
