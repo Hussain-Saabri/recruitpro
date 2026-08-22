@@ -83,8 +83,8 @@ export default function AppDatePicker({
   const firstDay = getFirstDayOfMonth(year, month);
 
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
   const selectedDateObj = value ? new Date(value) : null;
@@ -98,11 +98,11 @@ export default function AppDatePicker({
   const todayDayNum = today.getDate();
 
   return (
-    <div className="relative inline-block w-full md:w-auto" ref={containerRef}>
+    <div className="relative inline-block w-full" ref={containerRef}>
       {/* Input Box */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`h-[42px] px-3 border border-slate-300 hover:border-slate-400 focus-within:border-brand-500 rounded-md bg-white text-xs font-medium text-slate-700 flex items-center justify-between gap-2 shadow-2xs transition-all cursor-pointer outline-none min-w-[140px] ${className}`}
+        className={`h-[46px] px-3 mt-0.5 border border-slate-200 hover:border-slate-300 focus-within:border-brand-500 rounded-[5px] bg-white text-[12.5px] font-medium text-slate-700 flex items-center justify-between gap-2 transition-all cursor-pointer outline-none ${className}`}
       >
         <span className={value ? "text-slate-900 font-semibold" : "text-slate-400"}>
           {value ? formatDisplayDate(value) : placeholder}
@@ -121,30 +121,30 @@ export default function AppDatePicker({
         </div>
       </div>
 
-      {/* Compact Brand-Themed Calendar Popup (Positioned Above) */}
+      {/* Ultra Compact Brand-Themed Calendar Popup */}
       {isOpen && (
         <div
-          className={`absolute z-[9999] bg-white border border-slate-200 shadow-2xl rounded-lg p-2.5 w-[230px] animate-in fade-in zoom-in-95 duration-150 ${
-            position === "above" ? "bottom-full mb-1.5" : "top-full mt-1.5"
+          className={`absolute z-[9999] bg-white border border-slate-200 shadow-2xl rounded-lg p-1.5 w-[205px] animate-in fade-in zoom-in-95 duration-150 ${
+            position === "above" ? "bottom-full mb-1" : "top-full mt-1"
           } ${align === "right" ? "right-0" : "left-0"}`}
         >
           {/* Header Month Navigation */}
-          <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
-            <span className="text-[11px] font-bold text-slate-800">
+          <div className="flex items-center justify-between pb-1 border-b border-slate-100">
+            <span className="text-[11px] font-bold text-slate-800 ml-1">
               {monthNames[month]} {year}
             </span>
             <div className="flex items-center gap-0.5">
               <button
                 type="button"
                 onClick={handlePrevMonth}
-                className="p-1 hover:bg-brand-50 text-slate-600 hover:text-brand-600 rounded transition-colors cursor-pointer"
+                className="p-0.5 hover:bg-brand-50 text-slate-600 hover:text-brand-600 rounded transition-colors cursor-pointer"
               >
                 <ChevronLeft size={13} />
               </button>
               <button
                 type="button"
                 onClick={handleNextMonth}
-                className="p-1 hover:bg-brand-50 text-slate-600 hover:text-brand-600 rounded transition-colors cursor-pointer"
+                className="p-0.5 hover:bg-brand-50 text-slate-600 hover:text-brand-600 rounded transition-colors cursor-pointer"
               >
                 <ChevronRight size={13} />
               </button>
@@ -152,7 +152,7 @@ export default function AppDatePicker({
           </div>
 
           {/* Weekday Headers (High Contrast Colors) */}
-          <div className="grid grid-cols-7 gap-0.5 mt-1 text-center text-[11px] font-bold py-0.5 border-b border-slate-100 pb-1">
+          <div className="grid grid-cols-7 gap-0 mt-0.5 text-center text-[10px] font-bold py-0.5 border-b border-slate-100">
             <span className="text-amber-600">Mo</span>
             <span className="text-teal-600">Tu</span>
             <span className="text-purple-600">We</span>
@@ -166,7 +166,7 @@ export default function AppDatePicker({
           <div className="grid grid-cols-7 gap-0.5 mt-0.5 text-center">
             {/* Empty slots for offset */}
             {Array.from({ length: firstDay }).map((_, i) => (
-              <div key={`empty-${i}`} className="h-6" />
+              <div key={`empty-${i}`} className="h-5" />
             ))}
 
             {/* Month Days */}
@@ -182,9 +182,9 @@ export default function AppDatePicker({
                   key={day}
                   type="button"
                   onClick={() => handleSelectDay(day)}
-                  className={`h-6 w-6 text-[11px] font-medium rounded-full flex items-center justify-center transition-all cursor-pointer mx-auto ${
+                  className={`h-5 w-5 text-[10px] font-medium rounded-full flex items-center justify-center transition-all cursor-pointer mx-auto ${
                     isSelected
-                      ? "bg-brand-500 text-white font-bold shadow-sm ring-2 ring-brand-300"
+                      ? "bg-brand-500 text-white font-bold shadow-xs ring-1 ring-brand-300"
                       : isToday
                       ? "bg-brand-100 text-brand-700 font-bold border border-brand-300"
                       : isSunday
@@ -199,14 +199,14 @@ export default function AppDatePicker({
           </div>
 
           {/* Footer Today Button */}
-          <div className="flex items-center justify-between pt-1.5 mt-1.5 border-t border-slate-100">
+          <div className="flex items-center justify-between pt-1 mt-1 border-t border-slate-100">
             <button
               type="button"
               onClick={() => {
                 if (onChange) onChange("");
                 setIsOpen(false);
               }}
-              className="text-[10px] font-medium text-slate-500 hover:text-slate-800 transition-colors"
+              className="text-[9.5px] font-medium text-slate-500 hover:text-slate-800 transition-colors px-1"
             >
               Clear
             </button>
@@ -220,7 +220,7 @@ export default function AppDatePicker({
                 if (onChange) onChange(`${year}-${month}-${day}`);
                 setIsOpen(false);
               }}
-              className="text-[10px] font-bold text-brand-600 hover:text-brand-700 transition-colors"
+              className="text-[9.5px] font-bold text-brand-600 hover:text-brand-700 transition-colors px-1"
             >
               Today
             </button>
