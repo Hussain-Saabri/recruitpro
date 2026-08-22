@@ -1,5 +1,21 @@
-import React, { useMemo } from "react";
-import { User, Briefcase, Layers, Flag, UserCheck, Calendar, Settings, Eye } from "lucide-react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
+import { 
+  User, 
+  Briefcase, 
+  Layers, 
+  Flag, 
+  UserCheck, 
+  Calendar, 
+  Settings, 
+  Eye, 
+  MoreVertical, 
+  Send, 
+  CheckCircle2, 
+  Award, 
+  XCircle 
+} from "lucide-react";
+import { Tooltip } from "../ui";
 
 export const getStatusBadgeStyle = (status) => {
   switch (status) {
@@ -16,7 +32,23 @@ export const getStatusBadgeStyle = (status) => {
   }
 };
 
-export function useCandidateColumns(setSelectedCandidate) {
+const AdminActionCell = ({ row, setSelectedCandidate }) => {
+  return (
+    <div className="flex items-center gap-1.5">
+      {/* View Button */}
+      <Tooltip text="View Profile">
+        <button
+          onClick={() => setSelectedCandidate(row.original)}
+          className="w-8 h-8 rounded-[6px] border border-slate-200 bg-white hover:bg-brand-50 hover:border-brand-300 hover:text-brand-600 flex items-center justify-center text-slate-600 transition-all cursor-pointer shadow-2xs"
+        >
+          <Eye size={14} />
+        </button>
+      </Tooltip>
+    </div>
+  );
+};
+
+export function useCandidateColumns(setSelectedCandidate, onStatusUpdate) {
   return useMemo(
     () => [
       {
@@ -119,7 +151,6 @@ export function useCandidateColumns(setSelectedCandidate) {
           return (
             <div className="flex flex-col">
               <span className="text-[12px] font-semibold ">{c.date}</span>
-             
             </div>
           );
         }
@@ -132,20 +163,15 @@ export function useCandidateColumns(setSelectedCandidate) {
             <span>Actions</span>
           </div>
         ),
-        cell: ({ row }) => {
-          const c = row.original;
-          return (
-            <button
-              onClick={() => setSelectedCandidate(c)}
-              className="w-6 h-6 rounded border border-gray-200 hover:bg-slate-50 flex items-center justify-center cursor-pointer transition-all"
-              title="View Profile"
-            >
-              <Eye size={14} className="text-slate-600" />
-            </button>
-          );
-        }
+        cell: ({ row }) => (
+          <AdminActionCell
+            row={row}
+            setSelectedCandidate={setSelectedCandidate}
+            onStatusUpdate={onStatusUpdate}
+          />
+        )
       }
     ],
-    [setSelectedCandidate]
+    [setSelectedCandidate, onStatusUpdate]
   );
 }

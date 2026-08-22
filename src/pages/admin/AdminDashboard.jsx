@@ -6,6 +6,7 @@ import Cards from "@/components/ui/Cards";
 import PageHeader from "../../components/shared/PageHeader";
 import DataTable from "../../components/shared/DataTable";
 import { useCandidateColumns } from "../../components/admin/CandidateColumns";
+import CandidateDetailsView from "@/components/team-leader/CandidateDetailsView";
 import CandidateDetailModal from "../../components/admin/CandidateDetailModal";
 import { mockCandidates } from "../../components/admin/mockCandidates";
 import {
@@ -38,7 +39,6 @@ export default function Dashboard() {
     return <Navigate to="/masters/organization" replace />;
   }
 
-  
   const roleMetrics = useMemo(() => {
     switch (role) {
       case "admin":
@@ -70,7 +70,7 @@ export default function Dashboard() {
           jds: "3",
           jdsTrend: { value: "+2", isUp: true },
           processed: "1",
-          processedTrend: { value: "-2%", isUp: false }, // Negative trend to demonstrate logic
+          processedTrend: { value: "-2%", isUp: false },
           success: "80%",
           successTrend: { value: "+2%", isUp: true }
         };
@@ -83,14 +83,28 @@ export default function Dashboard() {
           processed: "1",
           processedTrend: { value: "+4%", isUp: true },
           success: "82%",
-          successTrend: { value: "-1%", isUp: false } // Negative trend to demonstrate logic
+          successTrend: { value: "-1%", isUp: false }
         };
     }
   }, [role]);
 
+  const handleStatusUpdate = (cand, newStatus) => {
+    setCandidates(prev => prev.map(c => c.id === cand.id ? { ...c, status: newStatus } : c));
+    setSelectedCandidate(prev => prev ? { ...prev, status: newStatus } : null);
+  };
+
+  if (selectedCandidate) {
+    return (
+      <CandidateDetailsView
+        candidate={selectedCandidate}
+        onBack={() => setSelectedCandidate(null)}
+        onStatusUpdate={handleStatusUpdate}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col gap-8 font-sans text-left w-full p-2">
-      
       <PageHeader 
         title={`${role === "teamLeader" ? "Team Leader" : role} Dashboard`}
         subtitle="Efficient pipeline management"
@@ -164,4 +178,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
