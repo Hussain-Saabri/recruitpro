@@ -73,7 +73,7 @@ export default function Cards({
       <div className="flex items-center gap-3">
         {/* Icon */}
         <div className={`w-10 h-10 ${style.iconBg} ${style.iconShadow} rounded-lg flex items-center justify-center text-white shrink-0`}>
-          {Icon && <Icon size={16} strokeWidth={2} />}
+          {React.isValidElement(Icon) ? Icon : Icon && <Icon size={16} strokeWidth={2} />}
         </div>
         
         <div className="flex flex-col text-left">

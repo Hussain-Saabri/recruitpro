@@ -15,6 +15,7 @@ export default function Modal({
   submitButtonIcon,
   cancelButtonIcon,
   submitButtonClassName,
+  cancelButtonClassName,
   titleClassName,
   className = "max-w-2xl", // Can pass max-w-2xl, max-w-3xl, etc.
 }) {
@@ -74,22 +75,29 @@ export default function Modal({
         {/* Modal Footer */}
         <div className="p-4 px-6 border-t gap-3 border-slate-100 bg-slate-50/50 rounded-b-xl flex flex-col-reverse sm:flex-row sm:justify-end shrink-0">
           {cancelButton && (
-          <Button
-            onClick={onClose}
-            variant="outline"
-            className="px-4 py-2 text-sm text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5"
-          >
-          {cancelButtonIcon ? cancelButtonIcon  : <X size={16} strokeWidth={2.5} />} {cancelButton || "Cancel"}
-          </Button>
+            <Button
+              onClick={onClose}
+              variant="outline"
+              className={cn(
+                "px-4 text-[13px] text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5 rounded-md",
+                cancelButtonClassName
+              )}
+            >
+              {cancelButtonIcon ? cancelButtonIcon : <X size={14} strokeWidth={2} />} {cancelButton}
+            </Button>
           )}
-          {submitButton && (<Button
-            onClick={onSubmit}
-            disabled={disabled}
-            className={cn("px-4 py-2 text-sm text-white bg-brand-600 hover:bg-brand-700 border border-transparent shadow-sm transition-all cursor-pointer h-9 font-medium w-full sm:w-auto flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed", submitButtonClassName)}
-          >
-           {submitButtonIcon ? submitButtonIcon  : <SendHorizonal size={16} strokeWidth={2.5} />}{submitButton || "Submit"}
-          </Button>)}
-          
+          {submitButton && (
+            <Button
+              onClick={onSubmit}
+              disabled={disabled}
+              className={cn(
+                "px-5 text-[13px] text-white bg-brand-500 hover:bg-brand-600 border border-transparent shadow-xs transition-all cursor-pointer h-9 font-semibold w-full sm:w-auto flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed rounded-md",
+                submitButtonClassName
+              )}
+            >
+              {submitButtonIcon ? submitButtonIcon : <SendHorizonal size={14} strokeWidth={2} />}{submitButton}
+            </Button>
+          )}
         </div>
       </div>
     </div>

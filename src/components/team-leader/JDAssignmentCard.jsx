@@ -26,7 +26,7 @@ export default function JDAssignmentCard({
             {company} • {reqId}
           </p>
         </div>
-        <Badge variant={status === 'ASSIGNED' ? 'success' : 'warning'} className="text-[10px] font-bold px-2.5 py-1 uppercase tracking-wider !rounded-[5px]">
+        <Badge variant={status === 'ASSIGNED' ? 'success' : status === 'UNASSIGNED' ? 'error' : 'warning'} className="text-[10px] font-bold px-2.5 py-1 uppercase tracking-wider !rounded-[5px]">
           {status}
         </Badge>
       </div>
