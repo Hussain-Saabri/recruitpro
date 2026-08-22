@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { User, Layers, Flag, CalendarDays, Settings, Eye, MoreVertical } from 'lucide-react';
+import { User, Layers, Flag, CalendarDays, Settings, Eye, MoreVertical, Send, XCircle, UserX, CheckCircle2, HelpCircle } from 'lucide-react';
 import Button from '../ui/Button';
 import { Tooltip } from '../ui';
 
@@ -32,7 +32,7 @@ const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
     if (!isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        bottom: window.innerHeight - rect.top + 4,
+        top: rect.bottom + 4,
         left: rect.right - 224, // 224px is w-56
       });
     }
@@ -40,11 +40,11 @@ const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
   };
 
   const statuses = [
-    "Profile Rejected by Client",
-    "Submitted",
-    "Profile Rejected by Team Lead",
-    "Processed to Client",
-    "No Response"
+    { label: "Submitted", icon: <Send size={13} className="text-blue-600" />, className: "text-blue-600 font-medium" },
+    { label: "Profile Rejected by Client", icon: <XCircle size={13} className="text-red-500" />, className: "text-red-500 font-medium" },
+    { label: "Profile Rejected by Team Lead", icon: <UserX size={13} className="text-orange-500" />, className: "text-orange-500 font-medium" },
+    { label: "Processed to Client", icon: <CheckCircle2 size={13} className="text-emerald-600" />, className: "text-emerald-600 font-medium" },
+    { label: "No Response", icon: <HelpCircle size={13} className="text-slate-500" />, className: "text-slate-700 font-medium" }
   ];
 
   return (
@@ -82,20 +82,26 @@ const ActionCell = ({ row, onViewClick, onStatusUpdate }) => {
         <div 
           id={`action-menu-${row.original.id}-${row.original.name}`}
           className="fixed w-56 bg-white border border-gray-200 rounded-md shadow-lg z-[9999] py-1 flex flex-col"
-          style={{ bottom: position.bottom, left: position.left }}
+          style={{ top: position.top, left: position.left }}
         >
-          {statuses.map(status => (
-            <button
-              key={status}
-              className={`w-full block text-left px-4 py-2 text-[13px] hover:bg-brand-50 hover:text-brand-600 transition-colors ${row.original.status?.toLowerCase() === status.toLowerCase() ? 'bg-brand-50 text-brand-600 font-medium' : 'text-gray-700'}`}
-              onClick={() => {
-                if(onStatusUpdate) onStatusUpdate(row.original, status);
-                setIsOpen(false);
-              }}
-            >
-              {status}
-            </button>
-          ))}
+          {statuses.map(item => {
+            const isSelected = row.original.status?.toLowerCase() === item.label.toLowerCase();
+            return (
+              <button
+                key={item.label}
+                className={`w-full flex items-center gap-2 text-left px-3 py-1 text-[13px] hover:bg-slate-50 transition-colors cursor-pointer ${
+                  isSelected ? 'bg-brand-50/60 font-semibold' : ''
+                }`}
+                onClick={() => {
+                  if(onStatusUpdate) onStatusUpdate(row.original, item.label);
+                  setIsOpen(false);
+                }}
+              >
+                <span className="shrink-0">{item.icon}</span>
+                <span className={`truncate ${item.className}`}>{item.label}</span>
+              </button>
+            );
+          })}
         </div>,
         document.body
       )}
@@ -183,6 +189,7 @@ export const getCandidateTableColumns = (onViewClick, onStatusUpdate) => [
     ),
     cell: ({ getValue }) => {
       const recruiter = getValue();
+
       return (
         <span className='text-[13px] font-medium text-gray-900'>
           {recruiter}
