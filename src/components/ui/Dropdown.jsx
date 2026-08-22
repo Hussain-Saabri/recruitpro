@@ -106,11 +106,17 @@ export default function Dropdown({
             )}
           >
             {selectedOption?.icon && <span className="shrink-0">{selectedOption.icon}</span>}
-            <span className="truncate">
-              {selectedOption
-                ? selectedOption.label
-                : placeholder}
-            </span>
+            {selectedOption?.className && selectedOption.value !== "all" ? (
+              <span className={cn("font-semibold truncate", selectedOption.className)}>
+                {selectedOption.label}
+              </span>
+            ) : (
+              <span className="truncate">
+                {selectedOption
+                  ? selectedOption.label
+                  : placeholder}
+              </span>
+            )}
           </span>
 
           <ChevronDown
@@ -157,15 +163,21 @@ export default function Dropdown({
                       setIsOpen(false);
                     }}
                     className={cn(
-                      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2.5 pr-8 text-[13px] text-left outline-none transition-colors hover:bg-gray-100 hover:text-gray-900",
+                      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-[1px] pl-2.5 pr-8 text-[13px] text-left outline-none transition-colors hover:bg-gray-100 hover:text-gray-900",
 
                       selectedOption?.value === option.value &&
                         "font-medium text-brand-500 hover:text-brand-600"
                     )}
                   >
                     <span className="flex items-center gap-1.5 truncate">
-                      {option.icon && <span className="shrink-0 text-gray-500">{option.icon}</span>}
-                      <span className="truncate">{option.label}</span>
+                      {option.icon && <span className="shrink-0">{option.icon}</span>}
+                      {option.className && option.value !== "all" ? (
+                        <span className={cn("font-medium truncate", option.className)}>
+                          {option.label}
+                        </span>
+                      ) : (
+                        <span className="truncate">{option.label}</span>
+                      )}
                     </span>
 
                     {selectedOption?.value === option.value && (
