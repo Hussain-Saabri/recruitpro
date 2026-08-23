@@ -93,14 +93,18 @@ export default function Filter() {
               value={startDate}
               onChange={setStartDate}
               placeholder="From Date"
+              prefix="From"
               align="left"
+              className="w-[145px]"
             />
             <span className="text-xs text-slate-400 font-medium">to</span>
             <AppDatePicker
               value={endDate}
               onChange={setEndDate}
               placeholder="To Date"
+              prefix="To"
               align="right"
+              className="w-[145px]"
             />
           </div>
         </div>
@@ -113,7 +117,7 @@ export default function Filter() {
           value={status || "all"}
           onChange={setStatus}
           defaultValue="all"
-          className="w-full md:w-[240px] h-[42px] border-slate-300"
+          className="w-full md:w-[250px] h-[42px] border-slate-300"
         />
 
         <Dropdown
@@ -123,7 +127,7 @@ export default function Filter() {
           options={recruiterOptions}
           value={recruiter || "all"}
           onChange={setRecruiter}
-          className="w-full md:w-[240px] h-[42px] border-slate-300"
+          className="w-full md:w-[250px] h-[42px] border-slate-300"
           defaultValue="all"
         />
 
@@ -134,7 +138,7 @@ export default function Filter() {
           options={dateOptions}
           value={sortOrder}
           onChange={setSortOrder}
-          className="w-full md:w-[240px] h-[42px] border-slate-300"
+          className="w-full md:w-[260px] h-[42px] border-slate-300"
           defaultValue="latest"
         />
 

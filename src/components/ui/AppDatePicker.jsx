@@ -5,6 +5,7 @@ export default function AppDatePicker({
   value,
   onChange,
   placeholder = "dd-mm-yyyy",
+  prefix = "",
   className = "",
   align = "left",
   position = "above"
@@ -102,12 +103,12 @@ export default function AppDatePicker({
       {/* Input Box */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`h-[46px] px-3 mt-0.5 border border-slate-200 hover:border-slate-300 focus-within:border-brand-500 rounded-[5px] bg-white text-[12.5px] font-medium text-slate-700 flex items-center justify-between gap-2 transition-all cursor-pointer outline-none ${className}`}
+        className={`h-[46px] px-2.5 mt-0.5 border border-slate-200 hover:border-slate-300 focus-within:border-brand-500 rounded-[5px] bg-white text-[12px] font-medium text-slate-700 flex items-center justify-between gap-1.5 transition-all cursor-pointer outline-none min-w-[135px] overflow-hidden ${className}`}
       >
-        <span className={value ? "text-slate-900 font-semibold" : "text-slate-400"}>
-          {value ? formatDisplayDate(value) : placeholder}
+        <span className={`whitespace-nowrap truncate min-w-0 ${value ? "text-slate-900 font-semibold" : "text-slate-700 font-medium"}`}>
+          {value ? (prefix ? `${prefix}: ${formatDisplayDate(value)}` : formatDisplayDate(value)) : placeholder}
         </span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           {value && (
             <button
               type="button"
