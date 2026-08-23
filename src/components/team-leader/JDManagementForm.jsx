@@ -121,7 +121,7 @@ export default function JDManagementForm({ onClose }) {
                                 setErrors({...errors, experience: ""});
                             }}}
                         required={true} 
-                        className="text-slate-700 text-[13px] bg-red-50/20"
+                        className="text-slate-700 text-[13px]"
                         error={errors.experience}
                     />
                     <Input
@@ -136,7 +136,7 @@ export default function JDManagementForm({ onClose }) {
                                 setErrors({...errors, location: ""});
                             }}}
                         required={true} 
-                        className="text-slate-700 text-[13px] bg-red-50/20"
+                        className="text-slate-700 text-[13px]"
                         error={errors.location}
                     />
                 </div>
@@ -185,7 +185,7 @@ export default function JDManagementForm({ onClose }) {
                                 setErrors({...errors, budget: ""});
                             }}}
                         required={true} 
-                        className="py-[12px]"
+                        
                         error={errors.budget}
                     />
                 </div>
